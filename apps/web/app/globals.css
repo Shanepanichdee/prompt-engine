@@ -825,3 +825,36 @@ input:focus-visible {
   color: var(--text);
   border-color: var(--border);
 }
+
+/* ── Shared prompt page ── */
+.shared-header {
+  margin-bottom: 16px;
+}
+
+.shared-title {
+  font-size: 26px;
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+}
+
+.shared-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.shared-date {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.shared-output {
+  min-height: 320px;
+  margin-bottom: 14px;
+}
+
+.shared-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
