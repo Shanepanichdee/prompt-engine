@@ -1,10 +1,10 @@
-import NextAuth from 'next-auth'
+import NextAuth, { type NextAuthResult } from 'next-auth'
 import GitHub from 'next-auth/providers/github'
 import Google from 'next-auth/providers/google'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import { db } from '@/lib/db'
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+const result: NextAuthResult = NextAuth({
   adapter: PrismaAdapter(db),
   providers: [
     GitHub({
@@ -30,3 +30,5 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
   },
 })
+
+export const { handlers, auth, signIn, signOut } = result
