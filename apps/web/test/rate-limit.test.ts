@@ -1,8 +1,9 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { checkRateLimit, _resetForTesting } from '../lib/rate-limit'
 
 describe('checkRateLimit()', () => {
   beforeEach(() => _resetForTesting())
+  afterEach(() => vi.useRealTimers())
 
   it('allows requests under the limit', () => {
     expect(checkRateLimit('key-a', 3, 60_000)).toBe(true)
@@ -22,7 +23,6 @@ describe('checkRateLimit()', () => {
     expect(checkRateLimit('key-c', 1, 1_000)).toBe(false)
     vi.advanceTimersByTime(1_001)
     expect(checkRateLimit('key-c', 1, 1_000)).toBe(true)
-    vi.useRealTimers()
   })
 
   it('tracks different keys independently', () => {
