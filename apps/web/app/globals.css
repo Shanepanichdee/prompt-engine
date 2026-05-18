@@ -731,3 +731,97 @@ input:focus-visible {
   border-color: var(--brand);
   background: var(--brand-soft);
 }
+
+/* ── History ── */
+.history-heading {
+  font-size: 28px;
+  margin: 0 0 20px;
+  letter-spacing: -0.02em;
+}
+
+.muted-text {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 860px;
+}
+
+.history-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.history-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--brand-soft);
+  color: var(--brand-2);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.history-date {
+  font-size: 12px;
+  color: var(--muted);
+  margin-left: auto;
+}
+
+.history-title {
+  font-size: 14px;
+  margin: 0;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.history-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.history-btn {
+  font-size: 12px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  cursor: pointer;
+  color: var(--text);
+}
+
+.history-btn.danger {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.history-btn.danger:hover {
+  background: #fff0ee;
+}
+
+.page.dark .history-item {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+.page.dark .history-btn {
+  background: var(--surface-2);
+  color: var(--text);
+  border-color: var(--border);
+}
