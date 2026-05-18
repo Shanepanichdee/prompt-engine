@@ -1,10 +1,11 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { build, frameworks, getLocale, type LocaleCode } from '@prompt-engine/core';
 import { FieldsForm } from '../components/FieldsForm';
 import { FrameworkPicker } from '../components/FrameworkPicker';
 import { OutputPanel } from '../components/OutputPanel';
+import { TopBar } from '../components/TopBar';
 import { FRAMEWORK_DETAILS } from '../components/frameworkDetails';
 
 const LOCALES: LocaleCode[] = ['en', 'th', 'zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ar'];
@@ -16,6 +17,17 @@ export default function Page() {
   const [devMode, setDevMode] = useState<boolean>(false);
   const [compactMode, setCompactMode] = useState<boolean>(false);
   const [darkMode, setDarkMode] = useState<boolean>(false);
+
+  // Pre-select framework + locale from ?framework= and ?locale= query params
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const fw = params.get('framework');
+    const loc = params.get('locale');
+    if (fw && frameworks.find((f) => f.id === fw)) setFrameworkId(fw);
+    if (loc && (['en', 'th', 'zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ar'] as string[]).includes(loc)) {
+      setLocale(loc as LocaleCode);
+    }
+  }, []);
 
   const selectedFramework = useMemo(
     () => frameworks.find((item) => item.id === frameworkId) ?? frameworks[0],
@@ -63,44 +75,14 @@ export default function Page() {
 
   return (
     <main className={`page ${compactMode ? 'compact' : ''} ${darkMode ? 'dark' : ''}`}>
-      <header className="topbar">
-        <div>
-          <div className="brand-row">
-            <img src="/logo-original.png" alt="datashane.com logo" className="brand-logo" />
-          </div>
-          <p className="brand-undertext">datashane.com</p>
-          <p className="kicker">Prompt Engineering Studio</p>
-          <h1>Prompt Engine</h1>
-          <p className="subtitle">Build structured prompts with framework guidance, multilingual connectors, and copy-ready output.</p>
-          <p className="credit">Created by <a href="https://datashane.com" target="_blank" rel="noreferrer">datashane.com</a></p>
-        </div>
-        <div className="mode-controls">
-          <label className="dev-toggle">
-            <input
-              type="checkbox"
-              checked={darkMode}
-              onChange={(event) => setDarkMode(event.target.checked)}
-            />
-            Dark Mode
-          </label>
-          <label className="dev-toggle">
-            <input
-              type="checkbox"
-              checked={compactMode}
-              onChange={(event) => setCompactMode(event.target.checked)}
-            />
-            Compact Mode
-          </label>
-          <label className="dev-toggle">
-            <input
-              type="checkbox"
-              checked={devMode}
-              onChange={(event) => setDevMode(event.target.checked)}
-            />
-            Dev Mode
-          </label>
-        </div>
-      </header>
+      <TopBar
+        darkMode={darkMode}
+        compactMode={compactMode}
+        devMode={devMode}
+        onDarkMode={setDarkMode}
+        onCompactMode={setCompactMode}
+        onDevMode={setDevMode}
+      />
 
       <div className="layout">
         <section className="panel builder-panel">

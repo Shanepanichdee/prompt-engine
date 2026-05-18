@@ -620,3 +620,55 @@ input:focus-visible {
     max-width: 100%;
   }
 }
+
+/* ── Auth ── */
+.auth-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border);
+}
+
+.auth-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brand-2);
+  text-decoration: none;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+}
+
+.auth-btn {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border: 1px solid var(--brand);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--brand-2);
+  cursor: pointer;
+}
+
+.auth-btn:hover {
+  background: var(--brand-soft);
+}
+
+.page.dark .auth-btn,
+.page.dark .auth-link {
+  background: var(--surface);
+  color: var(--brand-2);
+  border-color: var(--border);
+}
