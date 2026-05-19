@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  distDir: '/tmp/prompt-engine-web-next',
+  distDir: '.next',
   transpilePackages: ['@prompt-engine/core'],
   async headers() {
     return [
