@@ -40,8 +40,8 @@ export function TopBar({
             datashane.com
           </a>
           {' · for QR Code Engine: '}
-          <a href="https://data-shane.com" target="_blank" rel="noreferrer">
-            data-shane.com
+          <a href="https://qr-engine.data-shane.com" target="_blank" rel="noreferrer">
+            qr-engine.data-shane.com
           </a>
         </p>
       </div>
