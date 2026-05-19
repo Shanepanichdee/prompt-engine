@@ -1,0 +1,25 @@
+{
+  "name": "prompt-engine",
+  "version": "0.1.0",
+  "description": "CLI for rule-based prompt engineering",
+  "license": "MIT",
+  "bin": {
+    "prompt-engine": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "pnpm build && vitest run",
+    "prepublishOnly": "pnpm build && pnpm test"
+  },
+  "dependencies": {
+    "@prompt-engine/core": "workspace:*",
+    "@clack/prompts": "^0.10.1"
+  }
+}
