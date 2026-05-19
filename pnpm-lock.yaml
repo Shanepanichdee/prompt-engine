@@ -93,6 +93,10 @@ importers:
       '@prompt-engine/core':
         specifier: workspace:*
         version: link:../core
+    devDependencies:
+      '@types/node':
+        specifier: ^22.10.2
+        version: 22.19.19
 
   packages/core: {}
 
