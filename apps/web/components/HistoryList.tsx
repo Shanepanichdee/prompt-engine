@@ -11,6 +11,7 @@ type SavedPrompt = {
   title: string | null
   promptText: string
   inputs: unknown
+  isPublic: boolean
   createdAt: Date
 }
 
@@ -55,6 +56,17 @@ export function HistoryList({ prompts: initial }: { prompts: SavedPrompt[] }) {
 
   const handleCopyLink = (slug: string) => {
     navigator.clipboard.writeText(`${window.location.origin}/p/${slug}`)
+  }
+
+  const handleTogglePublic = async (id: string, currentIsPublic: boolean) => {
+    setPrompts((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, isPublic: !currentIsPublic } : p))
+    )
+    await fetch(`/api/prompts/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ isPublic: !currentIsPublic }),
+    })
   }
 
   if (prompts.length === 0) {
@@ -120,6 +132,13 @@ export function HistoryList({ prompts: initial }: { prompts: SavedPrompt[] }) {
                   onClick={() => handleCopyLink(p.slug)}
                 >
                   Copy link
+                </button>
+                <button
+                  type="button"
+                  className={`history-btn ${p.isPublic ? 'public-active' : ''}`}
+                  onClick={() => handleTogglePublic(p.id, p.isPublic)}
+                >
+                  {p.isPublic ? 'Public ✓' : 'Make public'}
                 </button>
                 <button
                   type="button"
