@@ -36,7 +36,6 @@ type Props = {
   frameworkName: string
   filledCount: number
   totalFields: number
-  devMode: boolean
   onCopy: () => void
 }
 
@@ -45,10 +44,10 @@ export function OutputPanel({
   frameworkName,
   filledCount,
   totalFields,
-  devMode,
   onCopy,
 }: Props) {
   const { data: session } = useSession()
+  const [devMode, setDevMode] = useState(false)
   const [shareSlug, setShareSlug] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
   const [title, setTitle] = useState('')
@@ -191,7 +190,15 @@ export function OutputPanel({
         {totalFields} fields filled
       </div>
 
-      {devMode ? (
+      <button
+        type="button"
+        className={`dev-toggle-btn${devMode ? ' dev-toggle-btn-active' : ''}`}
+        onClick={() => setDevMode((v) => !v)}
+      >
+        {devMode ? 'Hide dev' : 'Dev'}
+      </button>
+
+      {devMode && (
         <div className="dev-box">
           <h3>Sections</h3>
           <div className="sections-list">
@@ -206,7 +213,7 @@ export function OutputPanel({
             <pre className="json-view">{JSON.stringify(result, null, 2)}</pre>
           </details>
         </div>
-      ) : null}
+      )}
     </section>
   )
 }
