@@ -1029,6 +1029,63 @@ input:focus-visible {
   resize: vertical;
 }
 
+/* ── Legal pages (Privacy / Terms) ── */
+.legal-page {
+  max-width: 720px;
+}
+
+.legal-content {
+  margin-bottom: 32px;
+}
+
+.legal-title {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 4px;
+  color: var(--text);
+}
+
+.legal-date {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0 0 32px;
+}
+
+.legal-section {
+  margin-bottom: 28px;
+}
+
+.legal-section h2 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 8px;
+}
+
+.legal-section p,
+.legal-section li {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.7;
+  margin: 0 0 6px;
+}
+
+.legal-section ul {
+  padding-left: 20px;
+  margin: 6px 0;
+}
+
+.legal-section a {
+  color: var(--brand);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.legal-section a:hover {
+  text-decoration: underline;
+}
+
 /* ── Shared prompt page ── */
 .shared-header {
   margin-bottom: 16px;
