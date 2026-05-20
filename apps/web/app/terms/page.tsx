@@ -64,7 +64,7 @@ export default function TermsPage() {
 
         <section className="legal-section">
           <h2>9. Contact</h2>
-          <p>Questions? Email <a href="mailto:shane@datashane.com">shane@datashane.com</a>.</p>
+          <p>Questions? Email <a href="mailto:shanepanichdee@gmail.com">shanepanichdee@gmail.com</a>.</p>
         </section>
       </div>
 

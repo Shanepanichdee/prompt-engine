@@ -52,7 +52,7 @@ export default function PrivacyPage() {
 
         <section className="legal-section">
           <h2>5. Data Retention</h2>
-          <p>Your data is retained as long as your account exists. You can delete individual prompts from your History page. To delete your account and all data, contact us at <a href="mailto:shane@datashane.com">shane@datashane.com</a>.</p>
+          <p>Your data is retained as long as your account exists. You can delete individual prompts from your History page. To delete your account and all data, contact us at <a href="mailto:shanepanichdee@gmail.com">shanepanichdee@gmail.com</a>.</p>
         </section>
 
         <section className="legal-section">
@@ -62,7 +62,7 @@ export default function PrivacyPage() {
 
         <section className="legal-section">
           <h2>7. Contact</h2>
-          <p>Questions? Email <a href="mailto:shane@datashane.com">shane@datashane.com</a>.</p>
+          <p>Questions? Email <a href="mailto:shanepanichdee@gmail.com">shanepanichdee@gmail.com</a>.</p>
         </section>
       </div>
 
