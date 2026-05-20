@@ -152,6 +152,20 @@ export function OutputPanel({
           >
             ChatGPT ↗
           </button>
+          <button
+            type="button"
+            className="ai-btn"
+            onClick={() => openInAI('https://gemini.google.com/')}
+          >
+            Gemini ↗
+          </button>
+          <button
+            type="button"
+            className="ai-btn"
+            onClick={() => openInAI('https://copilot.microsoft.com/')}
+          >
+            Copilot ↗
+          </button>
           {aiCopied && (
             <span className="ai-copied-toast">Copied! Paste in the chat.</span>
           )}
