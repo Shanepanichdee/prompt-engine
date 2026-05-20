@@ -132,7 +132,10 @@ export default function Page() {
       </div>
 
       <footer className="page-footer">
-        <a href="https://datashane.com" target="_blank" rel="noreferrer">by datashane.com</a>
+        Created by{' '}
+        <a href="https://datashane.com" target="_blank" rel="noreferrer">datashane.com</a>
+        {' · '}
+        <a href="https://qr-engine.data-shane.com" target="_blank" rel="noreferrer">QR Code Engine</a>
         {' · '}
         <a href="/privacy">Privacy Policy</a>
         {' · '}

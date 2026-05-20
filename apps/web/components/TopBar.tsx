@@ -22,6 +22,7 @@ export function TopBar({ darkMode, onDarkMode }: Props) {
       <nav className="topbar-nav">
         <Link href="/compare" className="nav-link">Compare</Link>
         <Link href="/explore" className="nav-link">Explore</Link>
+        <a href="https://qr-engine.data-shane.com" target="_blank" rel="noreferrer" className="nav-link nav-link-external">QR Engine ↗</a>
       </nav>
 
       <div className="topbar-user">
