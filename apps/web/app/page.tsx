@@ -124,7 +124,14 @@ export default function Page() {
             onUseSample={handleUseSample}
           />
 
-          <h3 className="section-title">Inputs</h3>
+          <div className="section-title-row">
+            <h3 className="section-title">Inputs</h3>
+            {filledCount > 0 && (
+              <button type="button" className="clear-btn" onClick={() => setValues({})}>
+                Clear all
+              </button>
+            )}
+          </div>
           <FieldsForm fields={selectedFramework.fields} values={values} onChange={handleFieldChange} />
         </section>
 
