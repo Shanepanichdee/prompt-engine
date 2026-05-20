@@ -978,6 +978,23 @@ input:focus-visible {
   border-color: var(--border);
 }
 
+.history-btn.public-active {
+  color: var(--brand);
+  border-color: var(--brand);
+}
+
+.explore-author {
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--surface-2);
+  border-radius: 4px;
+  padding: 1px 6px;
+}
+
+.explore-sub {
+  margin-bottom: 16px;
+}
+
 /* ── Shared prompt page ── */
 .shared-header {
   margin-bottom: 16px;
