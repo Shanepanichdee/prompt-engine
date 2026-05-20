@@ -203,10 +203,22 @@ body {
 
 .tagline-strip {
   text-align: center;
-  font-size: 12px;
+  padding: 22px 0 26px;
+}
+
+.tagline-headline {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin: 0 0 6px;
+}
+
+.tagline-sub {
+  font-size: 13px;
   color: var(--muted);
-  padding: 10px 0 16px;
-  letter-spacing: 0.02em;
+  margin: 0;
+  letter-spacing: 0.01em;
 }
 
 .page-footer {
