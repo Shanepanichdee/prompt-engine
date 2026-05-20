@@ -4,8 +4,21 @@ type SharedPrompt = {
   frameworkId: string
   locale: string
   promptText: string
+  inputs: unknown
   title: string | null
   createdAt: Date
+}
+
+function buildBuilderUrl(prompt: SharedPrompt): string {
+  const params = new URLSearchParams()
+  params.set('framework', prompt.frameworkId)
+  params.set('locale', prompt.locale)
+  if (prompt.inputs && typeof prompt.inputs === 'object') {
+    for (const [k, v] of Object.entries(prompt.inputs as Record<string, string>)) {
+      if (v) params.set(k, v)
+    }
+  }
+  return `/?${params.toString()}`
 }
 
 export function SharedPromptView({ prompt }: { prompt: SharedPrompt }) {
@@ -42,11 +55,9 @@ export function SharedPromptView({ prompt }: { prompt: SharedPrompt }) {
         <button
           type="button"
           className="auth-btn"
-          onClick={() => {
-            window.location.href = `/?framework=${prompt.frameworkId}&locale=${prompt.locale}`
-          }}
+          onClick={() => { window.location.href = buildBuilderUrl(prompt) }}
         >
-          Open in builder
+          Open in Builder
         </button>
       </div>
     </main>

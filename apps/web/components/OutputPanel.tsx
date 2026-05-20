@@ -24,6 +24,7 @@ export function OutputPanel({
   const { data: session } = useSession()
   const [shareSlug, setShareSlug] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
+  const [title, setTitle] = useState('')
 
   const handleSave = async () => {
     setSaving(true)
@@ -37,11 +38,13 @@ export function OutputPanel({
           locale: result.locale,
           inputs: result.fields,
           promptText: result.prompt,
+          title: title.trim() || undefined,
         }),
       })
       if (res.ok) {
         const data = (await res.json()) as { slug: string }
         setShareSlug(data.slug)
+        setTitle('')
       }
     } finally {
       setSaving(false)
@@ -53,6 +56,8 @@ export function OutputPanel({
       ? `${window.location.origin}/p/${shareSlug}`
       : null
 
+  const canSave = session && result.prompt.length > 0
+
   return (
     <section className="panel output-panel">
       <div className="output-header-row">
@@ -61,7 +66,7 @@ export function OutputPanel({
           <button type="button" className="copy-btn" onClick={onCopy}>
             Copy
           </button>
-          {session && result.prompt.length > 0 && (
+          {canSave && (
             <button
               type="button"
               className="save-btn"
@@ -75,6 +80,17 @@ export function OutputPanel({
       </div>
 
       <textarea className="prompt-output" readOnly value={result.prompt} rows={16} />
+
+      {canSave && (
+        <input
+          type="text"
+          className="title-input"
+          placeholder="Title (optional) — helps you find this prompt later"
+          value={title}
+          maxLength={100}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+      )}
 
       {shareUrl && (
         <div className="share-row">

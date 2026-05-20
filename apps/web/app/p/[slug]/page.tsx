@@ -27,6 +27,7 @@ export default async function SharedPromptPage({ params }: Props) {
       frameworkId: true,
       locale: true,
       promptText: true,
+      inputs: true,
       title: true,
       createdAt: true,
     },

@@ -696,6 +696,28 @@ input:focus-visible {
   cursor: default;
 }
 
+.title-input {
+  width: 100%;
+  padding: 9px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s;
+  margin-top: 8px;
+}
+
+.title-input:focus {
+  border-color: var(--brand);
+}
+
+.title-input::placeholder {
+  color: var(--muted);
+}
+
 .share-row {
   display: flex;
   align-items: center;
@@ -742,6 +764,48 @@ input:focus-visible {
 .muted-text {
   color: var(--muted);
   font-size: 14px;
+}
+
+.history-filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.history-search {
+  flex: 1;
+  min-width: 200px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.history-search:focus {
+  border-color: var(--brand);
+}
+
+.history-filter-select {
+  padding: 9px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.history-filter-select:focus {
+  border-color: var(--brand);
 }
 
 .history-list {
