@@ -60,8 +60,10 @@ model SavedPrompt {
   inputs      Json
   promptText  String
   title       String?
+  isPublic    Boolean  @default(false)
   createdAt   DateTime @default(now())
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, createdAt(sort: Desc)])
+  @@index([isPublic, createdAt(sort: Desc)])
 }
