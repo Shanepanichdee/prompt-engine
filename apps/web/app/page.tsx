@@ -14,11 +14,8 @@ export default function Page() {
   const [locale, setLocale] = useState<LocaleCode>('en');
   const [frameworkId, setFrameworkId] = useState<string>(frameworks[0]?.id ?? 'rtf');
   const [values, setValues] = useState<Record<string, string>>({});
-  const [devMode, setDevMode] = useState<boolean>(false);
-  const [compactMode, setCompactMode] = useState<boolean>(false);
   const [darkMode, setDarkMode] = useState<boolean>(false);
 
-  // Pre-select framework + locale + inputs from URL query params (used by history "Load in Builder")
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const fw = params.get('framework');
@@ -33,7 +30,7 @@ export default function Page() {
       }
       if (Object.keys(loaded).length > 0) setValues(loaded);
     }
-    if (loc && (['en', 'th', 'zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ar'] as string[]).includes(loc)) {
+    if (loc && LOCALES.includes(loc as LocaleCode)) {
       setLocale(loc as LocaleCode);
     }
   }, []);
@@ -44,16 +41,12 @@ export default function Page() {
   );
 
   const result = useMemo(() => {
-    if (!selectedFramework) {
-      return null;
-    }
+    if (!selectedFramework) return null;
     return build(selectedFramework, values, locale);
   }, [selectedFramework, values, locale]);
 
   const filledCount = useMemo(() => {
-    if (!selectedFramework) {
-      return 0;
-    }
+    if (!selectedFramework) return 0;
     return selectedFramework.fields.filter((field) => (values[field.key] ?? '').trim().length > 0).length;
   }, [selectedFramework, values]);
 
@@ -72,9 +65,7 @@ export default function Page() {
   };
 
   const handleCopy = async () => {
-    if (!result) {
-      return;
-    }
+    if (!result) return;
     await navigator.clipboard.writeText(result.prompt);
   };
 
@@ -83,20 +74,15 @@ export default function Page() {
   }
 
   return (
-    <main className={`page ${compactMode ? 'compact' : ''} ${darkMode ? 'dark' : ''}`}>
-      <TopBar
-        darkMode={darkMode}
-        compactMode={compactMode}
-        devMode={devMode}
-        onDarkMode={setDarkMode}
-        onCompactMode={setCompactMode}
-        onDevMode={setDevMode}
-      />
+    <main className={`page${darkMode ? ' dark' : ''}`}>
+      <TopBar darkMode={darkMode} onDarkMode={setDarkMode} />
+
+      <div className="tagline-strip">
+        Build structured prompts &middot; 14 frameworks &middot; 10 languages
+      </div>
 
       <div className="layout">
         <section className="panel builder-panel">
-          <h2>Builder</h2>
-
           <label className="select-label">
             Language
             <select
@@ -140,10 +126,16 @@ export default function Page() {
           frameworkName={selectedFramework.name}
           filledCount={filledCount}
           totalFields={selectedFramework.fields.length}
-          devMode={devMode}
           onCopy={handleCopy}
         />
       </div>
+
+      <footer className="page-footer">
+        Created by{' '}
+        <a href="https://datashane.com" target="_blank" rel="noreferrer">datashane.com</a>
+        {' · '}
+        <a href="https://qr-engine.data-shane.com" target="_blank" rel="noreferrer">QR Code Engine</a>
+      </footer>
     </main>
   );
 }
