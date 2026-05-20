@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { db } from '@/lib/db'
 import { ExploreList } from '@/components/ExploreList'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Explore — Prompt Engine',
   description: 'Browse public prompts from the community.',
