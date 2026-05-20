@@ -10,7 +10,20 @@ type SavedPrompt = {
   locale: string
   title: string | null
   promptText: string
+  inputs: unknown
   createdAt: Date
+}
+
+function buildBuilderUrl(p: SavedPrompt): string {
+  const params = new URLSearchParams()
+  params.set('framework', p.frameworkId)
+  params.set('locale', p.locale)
+  if (p.inputs && typeof p.inputs === 'object') {
+    for (const [k, v] of Object.entries(p.inputs as Record<string, string>)) {
+      if (v) params.set(k, v)
+    }
+  }
+  return `/?${params.toString()}`
 }
 
 export function HistoryList({ prompts: initial }: { prompts: SavedPrompt[] }) {
@@ -52,6 +65,9 @@ export function HistoryList({ prompts: initial }: { prompts: SavedPrompt[] }) {
               {!p.title && p.promptText.length > 60 ? '…' : ''}
             </p>
             <div className="history-actions">
+              <Link href={buildBuilderUrl(p)} className="auth-link">
+                Load in Builder
+              </Link>
               <Link href={`/p/${p.slug}`} className="auth-link">
                 View
               </Link>

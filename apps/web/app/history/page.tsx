@@ -18,6 +18,7 @@ export default async function HistoryPage() {
       locale: true,
       title: true,
       promptText: true,
+      inputs: true,
       createdAt: true,
     },
   })

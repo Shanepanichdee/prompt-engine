@@ -18,12 +18,21 @@ export default function Page() {
   const [compactMode, setCompactMode] = useState<boolean>(false);
   const [darkMode, setDarkMode] = useState<boolean>(false);
 
-  // Pre-select framework + locale from ?framework= and ?locale= query params
+  // Pre-select framework + locale + inputs from URL query params (used by history "Load in Builder")
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const fw = params.get('framework');
     const loc = params.get('locale');
-    if (fw && frameworks.find((f) => f.id === fw)) setFrameworkId(fw);
+    const matchedFramework = fw ? frameworks.find((f) => f.id === fw) : null;
+    if (matchedFramework) {
+      setFrameworkId(matchedFramework.id);
+      const loaded: Record<string, string> = {};
+      for (const field of matchedFramework.fields) {
+        const val = params.get(field.key);
+        if (val) loaded[field.key] = val;
+      }
+      if (Object.keys(loaded).length > 0) setValues(loaded);
+    }
     if (loc && (['en', 'th', 'zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ar'] as string[]).includes(loc)) {
       setLocale(loc as LocaleCode);
     }
