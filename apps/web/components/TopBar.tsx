@@ -16,6 +16,7 @@ export function TopBar({ darkMode, onDarkMode }: Props) {
       <div className="topbar-brand">
         <img src="/logo-original.png" alt="datashane.com" className="brand-logo" />
         <span className="topbar-product-name">Prompt Engine</span>
+        <span className="topbar-by">by datashane.com</span>
       </div>
 
       <nav className="topbar-nav">
