@@ -1000,6 +1000,106 @@ input:focus-visible {
   margin-bottom: 16px;
 }
 
+/* ── Compare ── */
+.compare-sub {
+  margin-bottom: 20px;
+}
+
+.compare-locale {
+  margin-bottom: 20px;
+}
+
+.compare-framework-picker {
+  margin-bottom: 24px;
+}
+
+.compare-picker-label {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0 0 8px;
+}
+
+.compare-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.compare-pill {
+  font-size: 12px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--muted);
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.compare-pill-active {
+  color: var(--brand);
+  border-color: var(--brand);
+  background: var(--brand-soft);
+  font-weight: 500;
+}
+
+.compare-pill:hover:not(.compare-pill-active) {
+  color: var(--fg);
+  border-color: var(--fg);
+}
+
+.compare-body {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.compare-section-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.compare-panel {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  background: var(--surface-1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.compare-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.compare-framework-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg);
+  flex: 1;
+}
+
+.compare-token-count {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.compare-output {
+  font-size: 12px;
+  resize: vertical;
+}
+
 /* ── Shared prompt page ── */
 .shared-header {
   margin-bottom: 16px;

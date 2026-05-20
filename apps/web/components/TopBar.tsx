@@ -58,6 +58,9 @@ export function TopBar({
           <input type="checkbox" checked={devMode} onChange={(e) => onDevMode(e.target.checked)} />
           Dev Mode
         </label>
+        <Link href="/compare" className="auth-link">
+          Compare
+        </Link>
         <Link href="/explore" className="auth-link">
           Explore
         </Link>
