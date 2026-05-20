@@ -51,34 +51,17 @@ body {
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.38);
 }
 
-.page.dark .kicker,
-.page.dark .credit a {
-  color: var(--brand-2);
-}
-
 .page.dark .topbar {
   background: #182029;
-  border: 1px solid #2b3b4b;
+  border-color: #2b3b4b;
 }
 
-.page.dark .topbar h1 {
-  color: var(--text);
-}
-
-.page.dark .subtitle,
-.page.dark .credit {
-  color: #b4c1cf;
-}
-
-.page.dark .subtitle,
-.page.dark .credit,
 .page.dark .framework-description,
 .page.dark .field-hint,
 .page.dark .output-footer {
   color: var(--muted);
 }
 
-.page.dark .dev-toggle,
 .page.dark .panel,
 .page.dark .language-select,
 .page.dark .framework-card,
@@ -130,92 +113,113 @@ body {
 
 .topbar {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: flex-start;
   gap: 16px;
-  margin-bottom: 18px;
-  padding: 12px 14px;
+  margin-bottom: 0;
+  padding: 10px 20px;
   border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(18, 33, 50, 0.06);
 }
 
-.brand-row {
+.topbar-brand {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  margin-bottom: 8px;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.topbar-product-name {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.topbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-link {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.nav-link:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.dark-mode-btn {
+  height: 34px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  cursor: pointer;
+  font-size: 12px;
+  font-family: inherit;
+  font-weight: 600;
+  color: var(--muted);
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.dark-mode-btn:hover {
+  background: var(--brand-soft);
+  border-color: var(--brand);
+  color: var(--brand);
 }
 
 .brand-logo {
-  width: 260px;
-  height: 78px;
+  width: 140px;
+  height: 42px;
   object-fit: contain;
   object-position: left center;
 }
 
-.brand-undertext {
-  margin: -2px 0 8px;
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 0.03em;
-  text-align: left;
-}
-
-.kicker {
-  margin: 0 0 4px;
-  color: var(--brand-2);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.topbar h1 {
-  margin: 0;
-  font-size: 34px;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-}
-
-.subtitle {
-  max-width: 760px;
-  margin: 8px 0 0;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.credit {
-  margin: 8px 0 0;
+.tagline-strip {
+  text-align: center;
   font-size: 12px;
   color: var(--muted);
+  padding: 10px 0 16px;
+  letter-spacing: 0.02em;
 }
 
-.credit a {
+.page-footer {
+  margin-top: 32px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  padding: 16px 0;
+  border-top: 1px solid var(--border);
+}
+
+.page-footer a {
   color: var(--brand-2);
   text-decoration: none;
-  font-weight: 700;
+  font-weight: 600;
 }
 
-.credit a:hover {
+.page-footer a:hover {
   text-decoration: underline;
-}
-
-.dev-toggle {
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-  padding: 8px 12px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: var(--surface);
-  font-size: 13px;
-  user-select: none;
-}
-
-.mode-controls {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
 }
 
 .layout {
@@ -271,6 +275,23 @@ body {
 .clear-btn:hover {
   color: var(--danger);
   background: rgba(192, 57, 43, 0.08);
+}
+
+.dev-toggle-btn {
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 0;
+  font-family: inherit;
+  transition: color 0.15s;
+}
+
+.dev-toggle-btn:hover,
+.dev-toggle-btn-active {
+  color: var(--brand);
 }
 
 .select-label {
@@ -488,117 +509,6 @@ body {
   font-size: 12px;
 }
 
-.page.compact {
-  padding: 18px;
-}
-
-.page.compact .topbar {
-  margin-bottom: 12px;
-}
-
-.page.compact .kicker {
-  font-size: 11px;
-}
-
-.page.compact .brand-logo {
-  width: 210px;
-  height: 60px;
-}
-
-.page.compact .brand-undertext {
-  font-size: 10px;
-  margin-bottom: 6px;
-}
-
-.page.compact .topbar h1 {
-  font-size: 28px;
-}
-
-.page.compact .subtitle {
-  font-size: 12px;
-  margin-top: 6px;
-}
-
-.page.compact .layout {
-  gap: 12px;
-}
-
-.page.compact .panel {
-  padding: 12px;
-  border-radius: 12px;
-}
-
-.page.compact .panel h2 {
-  margin-bottom: 10px;
-  font-size: 18px;
-}
-
-.page.compact .section-title {
-  margin: 8px 0 6px;
-  font-size: 11px;
-}
-
-.page.compact .framework-grid {
-  gap: 6px;
-  margin-bottom: 10px;
-}
-
-.page.compact .framework-card {
-  padding: 8px;
-  border-radius: 10px;
-}
-
-.page.compact .framework-name {
-  font-size: 13px;
-  margin-bottom: 2px;
-}
-
-.page.compact .framework-description {
-  font-size: 11px;
-}
-
-.page.compact .framework-more,
-.page.compact .framework-detail-btn {
-  font-size: 11px;
-  padding: 5px 8px;
-}
-
-.page.compact .framework-detail-box {
-  padding: 8px;
-  font-size: 11px;
-  gap: 5px;
-}
-
-.page.compact .fields-list {
-  gap: 8px;
-}
-
-.page.compact .field-label {
-  font-size: 12px;
-}
-
-.page.compact .field-input {
-  padding: 8px;
-  line-height: 1.35;
-}
-
-.page.compact .field-hint {
-  margin-top: 3px;
-  font-size: 11px;
-}
-
-.page.compact .prompt-output {
-  min-height: 300px;
-  padding: 10px;
-  line-height: 1.4;
-}
-
-.page.compact .output-footer,
-.page.compact .dev-box h3,
-.page.compact .section-item,
-.page.compact .json-view {
-  font-size: 11px;
-}
 
 button,
 select,
@@ -627,24 +537,18 @@ input:focus-visible {
     padding: 16px;
   }
 
-  .topbar h1 {
-    font-size: 28px;
+  .topbar {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .topbar-nav {
+    order: 3;
+    width: 100%;
   }
 
   .framework-grid {
     grid-template-columns: 1fr;
-  }
-
-  .dev-toggle {
-    align-self: flex-start;
-  }
-
-  .mode-controls {
-    justify-content: flex-start;
-  }
-
-  .subtitle {
-    max-width: 100%;
   }
 }
 
