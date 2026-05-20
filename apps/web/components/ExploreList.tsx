@@ -37,6 +37,9 @@ export function ExploreList({ prompts }: { prompts: PublicPrompt[] }) {
   if (prompts.length === 0) {
     return (
       <main className="page">
+        <div className="page-nav">
+          <Link href="/" className="auth-link">← Builder</Link>
+        </div>
         <h1 className="history-heading">Explore</h1>
         <p className="muted-text">No public prompts yet. Save a prompt and make it public from History.</p>
       </main>
@@ -45,6 +48,9 @@ export function ExploreList({ prompts }: { prompts: PublicPrompt[] }) {
 
   return (
     <main className="page">
+      <div className="page-nav">
+        <Link href="/" className="auth-link">← Builder</Link>
+      </div>
       <h1 className="history-heading">Explore</h1>
       <p className="muted-text explore-sub">Community prompts — browse, copy, or load in Builder.</p>
 

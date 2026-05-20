@@ -72,6 +72,9 @@ export function HistoryList({ prompts: initial }: { prompts: SavedPrompt[] }) {
   if (prompts.length === 0) {
     return (
       <main className="page">
+        <div className="page-nav">
+          <Link href="/" className="auth-link">← Builder</Link>
+        </div>
         <h1 className="history-heading">History</h1>
         <p className="muted-text">No saved prompts yet. Build one and hit Save.</p>
       </main>
@@ -80,6 +83,9 @@ export function HistoryList({ prompts: initial }: { prompts: SavedPrompt[] }) {
 
   return (
     <main className="page">
+      <div className="page-nav">
+        <Link href="/" className="auth-link">← Builder</Link>
+      </div>
       <h1 className="history-heading">History</h1>
 
       <div className="history-filters">
