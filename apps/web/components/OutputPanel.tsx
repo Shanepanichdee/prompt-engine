@@ -2,7 +2,34 @@
 
 import { useState } from 'react'
 import { useSession } from 'next-auth/react'
-import type { PromptResult } from '@prompt-engine/core'
+import { frameworks, type PromptResult } from '@prompt-engine/core'
+
+function autoTitle(result: PromptResult): string {
+  const fw = frameworks.find((f) => f.id === result.framework)
+  if (!fw) return ''
+  const parts = fw.fields
+    .filter((f) => f.required)
+    .slice(0, 2)
+    .map((f) => result.fields[f.key])
+    .filter(Boolean)
+  return parts.join(' — ')
+}
+
+function toMarkdown(result: PromptResult): string {
+  return result.sections
+    .map((s) => `## ${s.label}\n\n${s.text}`)
+    .join('\n\n')
+}
+
+function downloadTxt(prompt: string, frameworkId: string) {
+  const blob = new Blob([prompt], { type: 'text/plain' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `prompt-${frameworkId}.txt`
+  a.click()
+  URL.revokeObjectURL(url)
+}
 
 type Props = {
   result: PromptResult
@@ -25,6 +52,7 @@ export function OutputPanel({
   const [shareSlug, setShareSlug] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
   const [title, setTitle] = useState('')
+  const [aiCopied, setAiCopied] = useState(false)
 
   const handleSave = async () => {
     setSaving(true)
@@ -38,7 +66,7 @@ export function OutputPanel({
           locale: result.locale,
           inputs: result.fields,
           promptText: result.prompt,
-          title: title.trim() || undefined,
+          title: title.trim() || autoTitle(result) || undefined,
         }),
       })
       if (res.ok) {
@@ -51,12 +79,20 @@ export function OutputPanel({
     }
   }
 
+  async function openInAI(url: string) {
+    await navigator.clipboard.writeText(result.prompt)
+    window.open(url, '_blank')
+    setAiCopied(true)
+    setTimeout(() => setAiCopied(false), 3000)
+  }
+
   const shareUrl =
     shareSlug && typeof window !== 'undefined'
       ? `${window.location.origin}/p/${shareSlug}`
       : null
 
   const canSave = session && result.prompt.length > 0
+  const hasOutput = result.prompt.length > 0
 
   return (
     <section className="panel output-panel">
@@ -81,11 +117,53 @@ export function OutputPanel({
 
       <textarea className="prompt-output" readOnly value={result.prompt} rows={16} />
 
+      {hasOutput && (
+        <div className="export-row">
+          <button
+            type="button"
+            className="export-btn"
+            onClick={() => navigator.clipboard.writeText(toMarkdown(result))}
+          >
+            Copy as Markdown
+          </button>
+          <button
+            type="button"
+            className="export-btn"
+            onClick={() => downloadTxt(result.prompt, result.framework)}
+          >
+            Download .txt
+          </button>
+        </div>
+      )}
+
+      {hasOutput && (
+        <div className="ai-row">
+          <span className="ai-row-label">Send to:</span>
+          <button
+            type="button"
+            className="ai-btn"
+            onClick={() => openInAI('https://claude.ai/new')}
+          >
+            Claude ↗
+          </button>
+          <button
+            type="button"
+            className="ai-btn"
+            onClick={() => openInAI('https://chat.openai.com/')}
+          >
+            ChatGPT ↗
+          </button>
+          {aiCopied && (
+            <span className="ai-copied-toast">Copied! Paste in the chat.</span>
+          )}
+        </div>
+      )}
+
       {canSave && (
         <input
           type="text"
           className="title-input"
-          placeholder="Title (optional) — helps you find this prompt later"
+          placeholder="Title (optional) — leave blank to auto-generate"
           value={title}
           maxLength={100}
           onChange={(e) => setTitle(e.target.value)}
