@@ -65,6 +65,32 @@ export default function ContextPage() {
         </p>
       </div>
 
+      <div className="context-howto">
+        <div className="howto-step">
+          <span className="howto-num">1</span>
+          <div className="howto-content">
+            <strong>Pick a pattern</strong>
+            <p>Choose the context layer that fits your AI system. Start with System Prompt — then add RAG, Memory, or Tools on top.</p>
+          </div>
+        </div>
+        <div className="howto-divider" />
+        <div className="howto-step">
+          <span className="howto-num">2</span>
+          <div className="howto-content">
+            <strong>Fill the fields</strong>
+            <p>Describe your AI system's role and rules. Not sure what to write? Click <em>Try sample</em> on any pattern to load a real example.</p>
+          </div>
+        </div>
+        <div className="howto-divider" />
+        <div className="howto-step">
+          <span className="howto-num">3</span>
+          <div className="howto-content">
+            <strong>Copy &amp; deploy</strong>
+            <p>Paste the output as your system prompt. Markers like <code>{'{{CONTEXT}}'}</code> are injection points — replace them in your code with real data at runtime.</p>
+          </div>
+        </div>
+      </div>
+
       <div className="layout">
         <section className="panel builder-panel">
           <h3 className="section-title">Patterns</h3>
@@ -95,6 +121,11 @@ export default function ContextPage() {
             </button>
           </div>
           <textarea className="prompt-output" readOnly value={result.prompt} rows={16} />
+          {result.prompt.includes('{{') && (
+            <div className="placeholder-note">
+              <strong>Runtime injection points</strong> — markers like <code>{'{{CONTEXT}}'}</code>, <code>{'{{HISTORY}}'}</code>, or <code>{'{{EXAMPLES}}'}</code> in the template are placeholders. In your application code, replace them with real data (retrieved documents, conversation history, selected examples) before sending to the model.
+            </div>
+          )}
           <div className="output-footer">
             {result.tokenEstimate} tokens · {selectedPattern.name} · {filledCount}/{selectedPattern.fields.length} fields filled
           </div>

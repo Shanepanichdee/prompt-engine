@@ -1537,3 +1537,97 @@ input:focus-visible {
 .layer-badge-examples      { background: #D1FAE5; color: #065F46; }
 .layer-badge-tools         { background: #FEF3C7; color: #92400E; }
 .layer-badge-orchestration { background: #FCE7F3; color: #9D174D; }
+
+/* Context page — how-to guide */
+.context-howto {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  max-width: 960px;
+  margin: 0 auto 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 24px;
+}
+.howto-step {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+}
+.howto-divider {
+  width: 1px;
+  background: var(--border);
+  margin: 0 20px;
+  align-self: stretch;
+}
+.howto-num {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.howto-content strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.howto-content p {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.55;
+}
+.howto-content code {
+  background: var(--brand-soft);
+  color: var(--brand-2);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: monospace;
+}
+
+/* Context page — placeholder explanation */
+.placeholder-note {
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--brand);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.placeholder-note strong {
+  color: var(--text);
+}
+.placeholder-note code {
+  background: var(--brand-soft);
+  color: var(--brand-2);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: monospace;
+}
+
+@media (max-width: 640px) {
+  .context-howto {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .howto-divider {
+    width: 100%;
+    height: 1px;
+    margin: 0;
+  }
+}
