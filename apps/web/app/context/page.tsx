@@ -121,11 +121,20 @@ export default function ContextPage() {
             </button>
           </div>
           <textarea className="prompt-output" readOnly value={result.prompt} rows={16} />
-          {result.prompt.includes('{{') && (
-            <div className="placeholder-note">
-              <strong>Runtime injection points</strong> — markers like <code>{'{{CONTEXT}}'}</code>, <code>{'{{HISTORY}}'}</code>, or <code>{'{{EXAMPLES}}'}</code> in the template are placeholders. In your application code, replace them with real data (retrieved documents, conversation history, selected examples) before sending to the model.
-            </div>
-          )}
+          {(() => {
+            const detail = CONTEXT_PATTERN_DETAILS[selectedPattern.id]
+            if (!detail) return null
+            return detail.type === 'direct' ? (
+              <div className="output-next-step next-step-direct">
+                <strong>Ready to use — no code needed.</strong> Copy this output and paste it as the system prompt / instructions in{' '}
+                <strong>ChatGPT Custom Instructions</strong>, a <strong>ChatGPT GPT</strong>, a <strong>Claude Project</strong>, or the <strong>OpenAI Playground System field</strong>.
+              </div>
+            ) : (
+              <div className="output-next-step next-step-code">
+                <strong>Requires code to deploy.</strong> The <code>{'{{PLACEHOLDERS}}'}</code> in this template are runtime injection points — your application code replaces them with real data before calling the AI API. Click <em>More details</em> on the pattern for step-by-step deployment instructions.
+              </div>
+            )
+          })()}
           <div className="output-footer">
             {result.tokenEstimate} tokens · {selectedPattern.name} · {filledCount}/{selectedPattern.fields.length} fields filled
           </div>

@@ -33,6 +33,11 @@ export function ContextPatternPicker({ patterns, selectedId, details, onSelect, 
               <div className="framework-name">
                 {pattern.name}
                 <span className={layerClass}>{pattern.layer}</span>
+                {detail && (
+                  <span className={`use-type-badge use-type-${detail.type}`}>
+                    {detail.type === 'direct' ? '✓ No code needed' : '{ } Requires code'}
+                  </span>
+                )}
               </div>
               <div className="framework-description">{pattern.description}</div>
             </button>
@@ -48,6 +53,10 @@ export function ContextPatternPicker({ patterns, selectedId, details, onSelect, 
                 <div><strong>What it is:</strong> {detail.whatItIs}</div>
                 <div><strong>When to use:</strong> {detail.whenToUse}</div>
                 <div><strong>Sample:</strong> {detail.sample}</div>
+                <div className="where-to-use-box">
+                  <strong>{detail.type === 'direct' ? '📋 Where to paste the output:' : '⚙️ How to deploy in code:'}</strong>
+                  <p>{detail.whereToUse}</p>
+                </div>
                 <div className="framework-detail-actions">
                   <button
                     type="button"
