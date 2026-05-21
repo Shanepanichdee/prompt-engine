@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "private": true,
-  "description": "Working Node.js examples for all 5 context engineering patterns",
+  "description": "Working Node.js examples for all 5 context engineering patterns — supports OpenAI, Anthropic, Gemini, and GitHub Models",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
     "dotenv": "^16.4.5",
     "openai": "^4.67.0"
   }

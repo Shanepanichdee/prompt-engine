@@ -1,74 +1,101 @@
 # Context Engineering Examples
 
 Five working Node.js examples — one per code-based context engineering pattern.
-Each example uses a system prompt generated from [prompts.data-shane.com/context](https://prompts.data-shane.com/context).
+Supports **OpenAI**, **Anthropic (Claude)**, **Google Gemini**, and **GitHub Models** via a single `AI_PROVIDER` switch.
 
 ---
 
 ## Setup (do this once)
 
-### 1. Get an OpenAI API key
-Go to [platform.openai.com/api-keys](https://platform.openai.com/api-keys) → Create new secret key.
-
-### 2. Install dependencies
+### 1. Install dependencies
 ```bash
 cd examples
 npm install
 ```
 
+### 2. Get API keys (get only the ones you want to use)
+
+| Provider | Where to get it | Cost |
+|---|---|---|
+| **OpenAI** | [platform.openai.com/api-keys](https://platform.openai.com/api-keys) | Pay per use |
+| **Anthropic (Claude)** | [console.anthropic.com](https://console.anthropic.com) | Pay per use, free credits on signup |
+| **Google Gemini** | [aistudio.google.com/apikey](https://aistudio.google.com/apikey) | **Free** — 1,500 req/day |
+| **GitHub Models** | [github.com/settings/tokens](https://github.com/settings/tokens) → classic token | **Free** with GitHub account |
+
+> **About "GitHub Copilot":** Copilot is the IDE coding assistant — not a chat API.
+> **GitHub Models** is the free API that runs GPT-4o, Llama 3, Mistral, Phi, and more.
+> Get a GitHub personal access token (no scopes needed) and set `AI_PROVIDER=github`.
+
 ### 3. Create your `.env` file
 ```bash
 cp .env.example .env
+# Edit .env — add the keys for the providers you want to use
 ```
-Open `.env` and replace `sk-...` with your real API key.
 
 ---
 
 ## Run the examples
 
-From the `examples/` directory:
+From the `examples/` directory. Set `AI_PROVIDER` to switch providers:
 
 ```bash
-node 01-rag/index.js          # Customer support bot that answers from a knowledge base
-node 02-memory/index.js       # Finance advisor chatbot that remembers your conversation
-node 03-few-shot/index.js     # Ticket classifier that learns from similar past tickets
-node 04-tool-use/index.js     # Data analyst that can calculate and query company data
-node 05-multi-agent/index.js  # Blog pipeline: Researcher → Writer → Editor
+# Default (OpenAI)
+node 01-rag/index.js
+
+# Use Gemini (free)
+AI_PROVIDER=gemini node 01-rag/index.js
+
+# Use Claude
+AI_PROVIDER=anthropic node 01-rag/index.js
+
+# Use GitHub Models (free)
+AI_PROVIDER=github node 01-rag/index.js
+```
+
+All 5 examples:
+```bash
+node 01-rag/index.js           # Customer support bot — answers from a knowledge base
+node 02-memory/index.js        # Finance advisor — remembers your conversation (interactive)
+node 03-few-shot/index.js      # Ticket classifier — learns from similar past tickets
+node 04-tool-use/index.js      # Data analyst — calls real functions (calculator, lookup)
+node 05-multi-agent/index.js   # Blog pipeline — Researcher → Writer → Editor
 ```
 
 ---
 
-## What each example teaches
+## Provider compatibility
 
-| # | Pattern | Core concept |
-|---|---------|-------------|
-| **01** | RAG | Retrieve relevant docs → fill `{{CONTEXT}}` → AI answers from those docs only |
-| **02** | Memory | Store turns in array → fill `{{HISTORY}}` → AI remembers the conversation |
-| **03** | Few-Shot | Find similar examples → fill `{{EXAMPLES}}` → AI learns the pattern |
-| **04** | Tool Use | AI decides to call a tool → your code runs it → result goes back to AI |
-| **05** | Multi-Agent | Agent 1 output → fill `{{UPSTREAM_OUTPUT}}` → becomes Agent 2 input |
+| Example | OpenAI | Anthropic | Gemini | GitHub Models |
+|---------|--------|-----------|--------|---------------|
+| 01-rag | ✅ | ✅ | ✅ | ✅ |
+| 02-memory | ✅ | ✅ | ✅ | ✅ |
+| 03-few-shot | ✅ | ✅ | ✅ | ✅ |
+| 04-tool-use | ✅ | ❌* | ✅ | ✅ |
+| 05-multi-agent | ✅ | ✅ | ✅ | ✅ |
+
+*Tool use with Anthropic requires the `tool_use` API which has a different format. Switching to `openai`, `gemini`, or `github` for example 04.
 
 ---
 
-## Costs
+## Default models per provider
 
-All examples use OpenAI's API. Approximate cost per run:
+| Provider | Default model | Good for |
+|---|---|---|
+| `openai` | gpt-4o-mini | All examples, best value |
+| `anthropic` | claude-3-5-haiku-20241022 | All examples except tool use |
+| `gemini` | gemini-1.5-flash | All examples, free tier |
+| `github` | gpt-4o-mini | All examples, free |
 
-| Example | Model | Est. cost |
-|---------|-------|-----------|
-| 01-rag | gpt-4o-mini | ~$0.001 |
-| 02-memory | gpt-4o-mini | ~$0.001 per message |
-| 03-few-shot | gpt-4o-mini | ~$0.001 |
-| 04-tool-use | gpt-4o | ~$0.01 |
-| 05-multi-agent | gpt-4o (×3 agents) | ~$0.05 |
+Override the model per run: `DEFAULT_MODEL=gpt-4o AI_PROVIDER=openai node 01-rag/index.js`
 
 ---
 
 ## How to use these with your own data
 
 1. Open [prompts.data-shane.com/context](https://prompts.data-shane.com/context)
-2. Pick a pattern, fill in your fields, copy the template
-3. Replace the `SYSTEM_TEMPLATE` or `*_PROMPT` constant in the example with your template
-4. Replace the knowledge base / examples / company data with your own data
+2. Pick a pattern, fill your fields, copy the template
+3. Replace the `SYSTEM_TEMPLATE` or `*_PROMPT` constant in the example
+4. Replace the knowledge base / examples / company data with your real data
+5. Set `AI_PROVIDER` to whichever provider you have a key for
 
-The `{{PLACEHOLDERS}}` in the template are exactly the spots your code fills in.
+The `{{PLACEHOLDERS}}` in the template map exactly to what your code fills in.

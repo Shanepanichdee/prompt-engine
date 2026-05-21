@@ -7,14 +7,15 @@
  *   3. Those chunks are inserted at {{CONTEXT}}
  *   4. The AI answers ONLY from that context — no hallucination from training data
  *
- * Run: node 01-rag/index.js
+ * Switch provider: AI_PROVIDER=gemini node 01-rag/index.js
+ * Run:             node 01-rag/index.js
  */
 
 import 'dotenv/config'
-import OpenAI from 'openai'
+import { chat, logProvider } from '../client.js'
 import { knowledgeBase } from './knowledge-base.js'
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+logProvider()
 
 // ─── System prompt template ────────────────────────────────────────────────
 // Generated from the Context page → RAG pattern (prompts.data-shane.com/context)
@@ -35,13 +36,11 @@ function retrieveChunks(query, chunks, topK = 3) {
   const queryTerms = new Set(
     query.toLowerCase().split(/\W+/).filter(w => w.length > 2)
   )
-
   const scored = chunks.map(chunk => {
     const chunkTerms = chunk.content.toLowerCase().split(/\W+/)
     const overlap = chunkTerms.filter(w => queryTerms.has(w)).length
     return { ...chunk, score: overlap }
   })
-
   return scored
     .sort((a, b) => b.score - a.score)
     .slice(0, topK)
@@ -52,33 +51,19 @@ function retrieveChunks(query, chunks, topK = 3) {
 async function ask(question) {
   console.log(`\n❓ Question: ${question}`)
 
-  // Step 1: Retrieve relevant chunks from knowledge base
   const relevant = retrieveChunks(question, knowledgeBase)
-
   if (relevant.length === 0) {
     console.log('⚠️  No relevant chunks found in knowledge base.')
     return
   }
-
   console.log(`📄 Retrieved: ${relevant.map(c => c.id).join(', ')}`)
 
-  // Step 2: Fill {{CONTEXT}} with retrieved chunks
-  const context = relevant
-    .map(c => `[${c.id}] ${c.content}`)
-    .join('\n\n')
-
+  // Fill {{CONTEXT}} with retrieved chunks
+  const context = relevant.map(c => `[${c.id}] ${c.content}`).join('\n\n')
   const systemPrompt = SYSTEM_TEMPLATE.replace('{{CONTEXT}}', context)
 
-  // Step 3: Send to AI — it now answers only from the injected context
-  const response = await openai.chat.completions.create({
-    model: 'gpt-4o-mini',
-    messages: [
-      { role: 'system', content: systemPrompt },
-      { role: 'user', content: question },
-    ],
-  })
-
-  console.log(`\n💬 Answer:\n${response.choices[0].message.content}`)
+  const answer = await chat({ systemPrompt, userMessage: question })
+  console.log(`\n💬 Answer:\n${answer}`)
   console.log('─'.repeat(60))
 }
 
