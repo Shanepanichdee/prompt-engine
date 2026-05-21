@@ -1,0 +1,11 @@
+{
+  "name": "context-engineering-examples",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "Working Node.js examples for all 5 context engineering patterns",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "openai": "^4.67.0"
+  }
+}
