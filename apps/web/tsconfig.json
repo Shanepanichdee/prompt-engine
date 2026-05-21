@@ -33,10 +33,11 @@
     "ignoreDeprecations": "5.0"
   },
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "/tmp/prompt-engine-web-next/types/**/*.ts"
+    "/tmp/prompt-engine-web-next/types/**/*.ts",
+    "next-env.d.ts",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

@@ -1517,3 +1517,23 @@ input:focus-visible {
   background: var(--brand-soft);
   border-radius: 10px;
 }
+
+/* Layer badges — ContextPatternPicker */
+.layer-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  vertical-align: middle;
+  margin-left: 6px;
+  line-height: 1.6;
+}
+.layer-badge-system        { background: var(--brand-soft); color: var(--brand-2); }
+.layer-badge-retrieval     { background: #DBEAFE; color: #1E40AF; }
+.layer-badge-memory        { background: #EDE9FE; color: #5B21B6; }
+.layer-badge-examples      { background: #D1FAE5; color: #065F46; }
+.layer-badge-tools         { background: #FEF3C7; color: #92400E; }
+.layer-badge-orchestration { background: #FCE7F3; color: #9D174D; }
