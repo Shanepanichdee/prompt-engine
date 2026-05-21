@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { build, estimateTokens, frameworks, getLocale, locales } from '../src';
+import { build, buildContext, contextPatterns, estimateTokens, frameworks, getLocale, locales } from '../src';
 import { section } from '../src/frameworks/utils';
 import { CONNECTOR_KEYS } from '../src/locales/keys';
 
@@ -125,4 +125,44 @@ describe('locales', () => {
       }
     });
   }
+});
+
+describe('buildContext()', () => {
+  for (const pattern of contextPatterns) {
+    it(`builds output for pattern ${pattern.id}`, () => {
+      const inputs: Record<string, string> = {};
+      for (const field of pattern.fields) {
+        if (field.required) inputs[field.key] = `test ${field.key}`;
+      }
+      const result = buildContext(pattern, inputs);
+      expect(result.pattern).toBe(pattern.id);
+      expect(result.prompt.length).toBeGreaterThan(0);
+      expect(result.sections.length).toBeGreaterThan(0);
+      expect(result.tokenEstimate).toBeGreaterThan(0);
+    });
+  }
+
+  it('returns empty prompt when no fields filled', () => {
+    const pattern = contextPatterns[0]!;
+    const result = buildContext(pattern, {});
+    expect(result.pattern).toBe(pattern.id);
+    expect(typeof result.prompt).toBe('string');
+  });
+});
+
+describe('contextPatterns', () => {
+  it('exports exactly 6 patterns', () => {
+    expect(contextPatterns).toHaveLength(6);
+  });
+
+  it('each pattern has required shape', () => {
+    for (const p of contextPatterns) {
+      expect(typeof p.id).toBe('string');
+      expect(typeof p.name).toBe('string');
+      expect(typeof p.description).toBe('string');
+      expect(typeof p.layer).toBe('string');
+      expect(Array.isArray(p.fields)).toBe(true);
+      expect(typeof p.assemble).toBe('function');
+    }
+  });
 });

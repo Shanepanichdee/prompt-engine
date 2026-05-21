@@ -58,3 +58,19 @@ export interface PromptResult {
   tokenEstimate: number;
   warnings: string[];
 }
+
+export interface ContextPattern {
+  id: string;
+  name: string;
+  description: string;
+  layer: 'System' | 'Retrieval' | 'Memory' | 'Examples' | 'Tools' | 'Orchestration';
+  fields: Field[];
+  assemble(inputs: Record<string, string>): PromptSection[];
+}
+
+export interface ContextResult {
+  prompt: string;
+  sections: PromptSection[];
+  pattern: string;
+  tokenEstimate: number;
+}
