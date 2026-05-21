@@ -20,6 +20,7 @@ export function TopBar({ darkMode, onDarkMode }: Props) {
       </div>
 
       <nav className="topbar-nav">
+        <Link href="/frameworks" className="nav-link">Frameworks</Link>
         <Link href="/compare" className="nav-link">Compare</Link>
         <Link href="/explore" className="nav-link">Explore</Link>
         <a href="https://qr-engine.data-shane.com" target="_blank" rel="noreferrer" className="nav-link nav-link-external">QR Engine ↗</a>
