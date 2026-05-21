@@ -20,6 +20,7 @@ export function TopBar({ darkMode, onDarkMode }: Props) {
       </div>
 
       <nav className="topbar-nav">
+        <Link href="/" className="nav-link">Prompts</Link>
         <Link href="/frameworks" className="nav-link">Frameworks</Link>
         <Link href="/context" className="nav-link">Context</Link>
         <Link href="/compare" className="nav-link">Compare</Link>
