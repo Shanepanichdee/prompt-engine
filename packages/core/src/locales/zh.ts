@@ -45,4 +45,14 @@ export const zh: LocaleStrings = {
   },
   respondIn: '请用中文回答',
   langLabel: '中文',
+  guide: {
+    strengths: '优势',
+    limitations: '局限性',
+    bestFor: '最适合',
+    avoidWhen: '避免当',
+    tryIt: '试试 →',
+    refGuide: '参考指南',
+    searchPlaceholder: '搜索框架…',
+    backToBuilder: '← 构建器',
+  },
 };

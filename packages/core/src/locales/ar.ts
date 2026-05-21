@@ -45,4 +45,14 @@ export const ar: LocaleStrings = {
   },
   respondIn: 'يرجى الرد باللغة العربية',
   langLabel: 'العربية',
+  guide: {
+    strengths: 'نقاط القوة',
+    limitations: 'القيود',
+    bestFor: 'الأفضل لـ',
+    avoidWhen: 'تجنب عندما',
+    tryIt: 'جرّب →',
+    refGuide: 'دليل مرجعي',
+    searchPlaceholder: 'ابحث عن الأطر…',
+    backToBuilder: '← المنشئ',
+  },
 };

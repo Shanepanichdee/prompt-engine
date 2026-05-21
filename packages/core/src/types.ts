@@ -10,10 +10,22 @@ export type LocaleCode =
   | 'pt'
   | 'ar';
 
+export interface GuideStrings {
+  strengths: string;
+  limitations: string;
+  bestFor: string;
+  avoidWhen: string;
+  tryIt: string;
+  refGuide: string;
+  searchPlaceholder: string;
+  backToBuilder: string;
+}
+
 export interface LocaleStrings {
   connectors: Record<string, string>;
   respondIn: string;
   langLabel: string;
+  guide: GuideStrings;
 }
 
 export interface Field {

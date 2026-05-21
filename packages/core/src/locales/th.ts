@@ -45,4 +45,14 @@ export const th: LocaleStrings = {
   },
   respondIn: 'กรุณาตอบเป็นภาษาไทย',
   langLabel: 'ภาษาไทย',
+  guide: {
+    strengths: 'จุดเด่น',
+    limitations: 'ข้อจำกัด',
+    bestFor: 'เหมาะสำหรับ',
+    avoidWhen: 'หลีกเลี่ยงเมื่อ',
+    tryIt: 'ลองใช้ →',
+    refGuide: 'คู่มืออ้างอิง',
+    searchPlaceholder: 'ค้นหากรอบงาน…',
+    backToBuilder: '← ตัวสร้าง',
+  },
 };

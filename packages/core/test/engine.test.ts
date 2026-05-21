@@ -105,4 +105,24 @@ describe('locales', () => {
       }
     });
   }
+
+  const GUIDE_KEYS = [
+    'strengths',
+    'limitations',
+    'bestFor',
+    'avoidWhen',
+    'tryIt',
+    'refGuide',
+    'searchPlaceholder',
+    'backToBuilder',
+  ] as const;
+
+  for (const [localeCode, locale] of Object.entries(locales)) {
+    it(`${localeCode} has all guide keys`, () => {
+      for (const key of GUIDE_KEYS) {
+        expect((locale.guide as Record<string, string>)[key]).toBeTypeOf('string');
+        expect((locale.guide as Record<string, string>)[key].trim().length).toBeGreaterThan(0);
+      }
+    });
+  }
 });

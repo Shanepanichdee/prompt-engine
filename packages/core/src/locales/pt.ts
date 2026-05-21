@@ -45,4 +45,14 @@ export const pt: LocaleStrings = {
   },
   respondIn: 'Por favor responda em português',
   langLabel: 'Português',
+  guide: {
+    strengths: 'Pontos fortes',
+    limitations: 'Limitações',
+    bestFor: 'Ideal para',
+    avoidWhen: 'Evitar quando',
+    tryIt: 'Experimentar →',
+    refGuide: 'Guia de referência',
+    searchPlaceholder: 'Pesquisar frameworks…',
+    backToBuilder: '← Construtor',
+  },
 };

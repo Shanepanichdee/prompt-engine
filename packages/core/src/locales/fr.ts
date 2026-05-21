@@ -45,4 +45,14 @@ export const fr: LocaleStrings = {
   },
   respondIn: 'Veuillez répondre en français',
   langLabel: 'Français',
+  guide: {
+    strengths: 'Points forts',
+    limitations: 'Limites',
+    bestFor: 'Idéal pour',
+    avoidWhen: 'Éviter quand',
+    tryIt: 'Essayer →',
+    refGuide: 'Guide de référence',
+    searchPlaceholder: 'Rechercher des cadres…',
+    backToBuilder: '← Constructeur',
+  },
 };

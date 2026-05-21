@@ -45,4 +45,14 @@ export const ko: LocaleStrings = {
   },
   respondIn: '한국어로 답변해 주세요',
   langLabel: '한국어',
+  guide: {
+    strengths: '강점',
+    limitations: '제한 사항',
+    bestFor: '최적 용도',
+    avoidWhen: '피해야 할 때',
+    tryIt: '사용해보기 →',
+    refGuide: '참조 가이드',
+    searchPlaceholder: '프레임워크 검색…',
+    backToBuilder: '← 빌더',
+  },
 };

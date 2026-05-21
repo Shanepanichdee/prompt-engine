@@ -45,4 +45,14 @@ export const ja: LocaleStrings = {
   },
   respondIn: '日本語で回答してください',
   langLabel: '日本語',
+  guide: {
+    strengths: '強み',
+    limitations: '制限',
+    bestFor: '最適な用途',
+    avoidWhen: '避けるべき状況',
+    tryIt: '試してみる →',
+    refGuide: '参照ガイド',
+    searchPlaceholder: 'フレームワークを検索…',
+    backToBuilder: '← ビルダー',
+  },
 };

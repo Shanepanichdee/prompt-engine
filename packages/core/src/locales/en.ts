@@ -45,4 +45,14 @@ export const en: LocaleStrings = {
   },
   respondIn: '',
   langLabel: 'English',
+  guide: {
+    strengths: 'Strengths',
+    limitations: 'Limitations',
+    bestFor: 'Best for',
+    avoidWhen: 'Avoid when',
+    tryIt: 'Try it →',
+    refGuide: 'Reference Guide',
+    searchPlaceholder: 'Search frameworks…',
+    backToBuilder: '← Builder',
+  },
 };
