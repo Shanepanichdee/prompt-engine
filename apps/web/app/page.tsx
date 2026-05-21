@@ -82,7 +82,7 @@ export default function Page() {
         <p className="tagline-eyebrow">Prompt Engineering Platform</p>
         <h1 className="tagline-headline">Engineer AI Prompts That Deliver Results</h1>
         <p className="tagline-sub">Apply industry-tested frameworks to structure your prompts with precision — 14 methodologies, 10 languages, professional-grade output.</p>
-        <Link href="/frameworks" className="guide-hero-cta">Explore all 14 frameworks →</Link>
+        <Link href={`/frameworks${locale !== 'en' ? `?locale=${locale}` : ''}`} className="guide-hero-cta">Explore all 14 frameworks →</Link>
       </div>
 
       <div className="layout">

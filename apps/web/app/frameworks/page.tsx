@@ -1,12 +1,25 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
-import { frameworks } from '@prompt-engine/core'
+import { frameworks, getLocale, type LocaleCode } from '@prompt-engine/core'
 import { FRAMEWORK_GUIDE } from '@/components/frameworkGuide'
+
+const LOCALES: LocaleCode[] = ['en', 'th', 'zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ar']
 
 export default function FrameworksPage() {
   const [search, setSearch] = useState('')
+  const [locale, setLocale] = useState<LocaleCode>('en')
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const loc = params.get('locale')
+    if (loc && LOCALES.includes(loc as LocaleCode)) {
+      setLocale(loc as LocaleCode)
+    }
+  }, [])
+
+  const t = getLocale(locale)
 
   const visible = useMemo(() => {
     const q = search.toLowerCase().trim()
@@ -22,11 +35,29 @@ export default function FrameworksPage() {
   return (
     <main className="page guide-page">
       <div className="page-nav">
-        <Link href="/" className="auth-link">← Builder</Link>
+        <Link href={`/${locale !== 'en' ? `?locale=${locale}` : ''}`} className="auth-link">
+          {t.guide.backToBuilder}
+        </Link>
+        <label className="select-label" style={{ marginLeft: 'auto' }}>
+          <select
+            className="language-select"
+            value={locale}
+            onChange={(e) => setLocale(e.target.value as LocaleCode)}
+          >
+            {LOCALES.map((code) => {
+              const localeDef = getLocale(code)
+              return (
+                <option key={code} value={code}>
+                  {localeDef.langLabel} ({code})
+                </option>
+              )
+            })}
+          </select>
+        </label>
       </div>
 
       <div className="guide-hero">
-        <p className="tagline-eyebrow">Reference Guide</p>
+        <p className="tagline-eyebrow">{t.guide.refGuide}</p>
         <h1 className="guide-title">14 Prompt Engineering Frameworks</h1>
         <p className="guide-subtitle">
           Understand which framework fits your task — pros, cons, and when to use each methodology.
@@ -37,7 +68,7 @@ export default function FrameworksPage() {
         <input
           type="search"
           className="guide-search"
-          placeholder="Search frameworks…"
+          placeholder={t.guide.searchPlaceholder}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -54,8 +85,11 @@ export default function FrameworksPage() {
                   <h2 className="guide-card-name">{fw.name}</h2>
                   <p className="guide-card-acronym">{fw.description}</p>
                 </div>
-                <Link href={`/?framework=${fw.id}`} className="guide-try-link">
-                  Try it →
+                <Link
+                  href={`/?framework=${fw.id}${locale !== 'en' ? `&locale=${locale}` : ''}`}
+                  className="guide-try-link"
+                >
+                  {t.guide.tryIt}
                 </Link>
               </div>
 
@@ -63,13 +97,13 @@ export default function FrameworksPage() {
                 <>
                   <div className="guide-pros-cons">
                     <div className="guide-pros">
-                      <p className="guide-list-label">Strengths</p>
+                      <p className="guide-list-label">{t.guide.strengths}</p>
                       <ul>
                         {guide.pros.map((p) => <li key={p}>{p}</li>)}
                       </ul>
                     </div>
                     <div className="guide-cons">
-                      <p className="guide-list-label">Limitations</p>
+                      <p className="guide-list-label">{t.guide.limitations}</p>
                       <ul>
                         {guide.cons.map((c) => <li key={c}>{c}</li>)}
                       </ul>
@@ -78,11 +112,11 @@ export default function FrameworksPage() {
 
                   <div className="guide-tags">
                     <div className="guide-tag guide-tag-best">
-                      <span className="guide-tag-label">Best for</span>
+                      <span className="guide-tag-label">{t.guide.bestFor}</span>
                       <span>{guide.bestFor}</span>
                     </div>
                     <div className="guide-tag guide-tag-avoid">
-                      <span className="guide-tag-label">Avoid when</span>
+                      <span className="guide-tag-label">{t.guide.avoidWhen}</span>
                       <span>{guide.avoid}</span>
                     </div>
                   </div>
