@@ -207,22 +207,36 @@ body {
 
 .tagline-strip {
   text-align: center;
-  padding: 22px 0 26px;
+  padding: 36px 0 32px;
+}
+
+.tagline-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin: 0 0 12px;
 }
 
 .tagline-headline {
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 32px;
+  font-weight: 800;
   color: var(--text);
-  letter-spacing: -0.02em;
-  margin: 0 0 6px;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin: 0 0 14px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .tagline-sub {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--muted);
-  margin: 0;
-  letter-spacing: 0.01em;
+  margin: 0 auto;
+  line-height: 1.6;
+  max-width: 520px;
 }
 
 .page-footer {

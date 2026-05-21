@@ -78,8 +78,9 @@ export default function Page() {
       <TopBar darkMode={darkMode} onDarkMode={setDarkMode} />
 
       <div className="tagline-strip">
-        <p className="tagline-headline">Structure your AI prompts like an expert</p>
-        <p className="tagline-sub">14 proven frameworks &middot; 10 languages &middot; copy-ready output</p>
+        <p className="tagline-eyebrow">Prompt Engineering Platform</p>
+        <h1 className="tagline-headline">Engineer AI Prompts That Deliver Results</h1>
+        <p className="tagline-sub">Apply industry-tested frameworks to structure your prompts with precision — 14 methodologies, 10 languages, professional-grade output.</p>
       </div>
 
       <div className="layout">
