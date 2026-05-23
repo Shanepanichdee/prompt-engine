@@ -3,7 +3,9 @@ import Stripe from 'stripe'
 import { auth } from '@/lib/auth'
 import { db } from '@/lib/db'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2026-04-22.dahlia',
+})
 
 export async function POST(req: Request) {
   const session = await auth()
@@ -11,7 +13,14 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const { plan } = (await req.json()) as { plan: 'pro' | 'day' }
+  let body: { plan?: unknown }
+  try {
+    body = (await req.json()) as { plan?: unknown }
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
+  }
+
+  const { plan } = body
   if (plan !== 'pro' && plan !== 'day') {
     return NextResponse.json({ error: 'Invalid plan' }, { status: 400 })
   }
@@ -19,39 +28,43 @@ export async function POST(req: Request) {
   const user = await db.user.findUnique({ where: { id: session.user.id } })
   if (!user) return NextResponse.json({ error: 'User not found' }, { status: 404 })
 
-  let customerId = user.stripeCustomerId
-  if (!customerId) {
-    const customer = await stripe.customers.create({
-      email: session.user.email ?? undefined,
-      name: session.user.name ?? undefined,
-      metadata: { userId: session.user.id },
-    })
-    customerId = customer.id
-    await db.user.update({
-      where: { id: session.user.id },
-      data: { stripeCustomerId: customerId },
-    })
-  }
+  try {
+    let customerId = user.stripeCustomerId
+    if (!customerId) {
+      const customer = await stripe.customers.create(
+        {
+          email: session.user.email ?? undefined,
+          name: session.user.name ?? undefined,
+          metadata: { userId: session.user.id },
+        },
+        { idempotencyKey: `create-customer-${session.user.id}` },
+      )
+      customerId = customer.id
+      await db.user.update({
+        where: { id: session.user.id },
+        data: { stripeCustomerId: customerId },
+      })
+    }
 
-  const baseUrl = process.env.AUTH_URL ?? 'http://localhost:3000'
+    const baseUrl = process.env.AUTH_URL ?? 'http://localhost:3000'
+    const mode = plan === 'pro' ? 'subscription' : 'payment'
+    const priceId = plan === 'pro' ? process.env.STRIPE_PRO_PRICE_ID! : process.env.STRIPE_DAY_PASS_PRICE_ID!
 
-  if (plan === 'pro') {
     const checkoutSession = await stripe.checkout.sessions.create({
       customer: customerId,
-      mode: 'subscription',
-      line_items: [{ price: process.env.STRIPE_PRO_PRICE_ID!, quantity: 1 }],
+      mode,
+      line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${baseUrl}/?upgraded=1`,
       cancel_url: `${baseUrl}/pricing`,
     })
-    return NextResponse.json({ url: checkoutSession.url })
-  }
 
-  const checkoutSession = await stripe.checkout.sessions.create({
-    customer: customerId,
-    mode: 'payment',
-    line_items: [{ price: process.env.STRIPE_DAY_PASS_PRICE_ID!, quantity: 1 }],
-    success_url: `${baseUrl}/?upgraded=1`,
-    cancel_url: `${baseUrl}/pricing`,
-  })
-  return NextResponse.json({ url: checkoutSession.url })
+    if (!checkoutSession.url) {
+      return NextResponse.json({ error: 'Failed to create checkout session' }, { status: 500 })
+    }
+
+    return NextResponse.json({ url: checkoutSession.url })
+  } catch (err) {
+    console.error('Stripe checkout error:', err)
+    return NextResponse.json({ error: 'Payment service unavailable' }, { status: 503 })
+  }
 }
