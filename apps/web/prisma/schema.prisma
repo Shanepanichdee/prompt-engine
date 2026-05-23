@@ -17,6 +17,8 @@ model User {
   subscriptionStatus  String?
   subscriptionId      String?       @unique
   dayPassExpiry       DateTime?
+  freeUsageCount      Int           @default(0)
+  freeUsageDate       DateTime?
   accounts            Account[]
   savedPrompts        SavedPrompt[]
   sessions            Session[]
