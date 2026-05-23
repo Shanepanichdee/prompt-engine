@@ -4,9 +4,9 @@ import { db } from '@/lib/db'
 
 export const dynamic = 'force-dynamic'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2026-04-22.dahlia',
-})
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2026-04-22.dahlia' })
+}
 
 function toCustomerId(customer: string | Stripe.Customer | Stripe.DeletedCustomer | null): string | null {
   if (!customer) return null
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
 
   let event: Stripe.Event
   try {
-    event = stripe.webhooks.constructEvent(body, sig, webhookSecret)
+    event = getStripe().webhooks.constructEvent(body, sig, webhookSecret)
   } catch {
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
   }

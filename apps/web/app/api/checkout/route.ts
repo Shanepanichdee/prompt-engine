@@ -3,9 +3,9 @@ import Stripe from 'stripe'
 import { auth } from '@/lib/auth'
 import { db } from '@/lib/db'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2026-04-22.dahlia',
-})
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2026-04-22.dahlia' })
+}
 
 export async function POST(req: Request) {
   const session = await auth()
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
   try {
     let customerId = user.stripeCustomerId
     if (!customerId) {
-      const customer = await stripe.customers.create(
+      const customer = await getStripe().customers.create(
         {
           email: session.user.email ?? undefined,
           name: session.user.name ?? undefined,
@@ -50,7 +50,7 @@ export async function POST(req: Request) {
     const mode = plan === 'pro' ? 'subscription' : 'payment'
     const priceId = plan === 'pro' ? process.env.STRIPE_PRO_PRICE_ID! : process.env.STRIPE_DAY_PASS_PRICE_ID!
 
-    const checkoutSession = await stripe.checkout.sessions.create({
+    const checkoutSession = await getStripe().checkout.sessions.create({
       customer: customerId,
       mode,
       line_items: [{ price: priceId, quantity: 1 }],
