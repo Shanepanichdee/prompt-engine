@@ -11,6 +11,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
+  if (!session.user.isPro) {
+    return NextResponse.json({ error: 'Pro required', code: 'pro_required' }, { status: 402 })
+  }
+
   if (!checkRateLimit(`prompts:${session.user.id}`, 20, 60_000)) {
     return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
   }
