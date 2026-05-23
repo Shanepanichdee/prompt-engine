@@ -32,7 +32,7 @@ function downloadTxt(prompt: string, frameworkId: string) {
 }
 
 type Props = {
-  result: PromptResult
+  result: PromptResult | null
   frameworkName: string
   filledCount: number
   totalFields: number
@@ -54,6 +54,7 @@ export function OutputPanel({
   const [aiCopied, setAiCopied] = useState(false)
 
   const handleSave = async () => {
+    if (!result) return
     setSaving(true)
     setShareSlug(null)
     try {
@@ -79,6 +80,7 @@ export function OutputPanel({
   }
 
   async function openInAI(url: string) {
+    if (!result) return
     await navigator.clipboard.writeText(result.prompt)
     window.open(url, '_blank')
     setAiCopied(true)
@@ -90,7 +92,7 @@ export function OutputPanel({
       ? `${window.location.origin}/p/${shareSlug}`
       : null
 
-  const hasOutput = result.prompt.length > 0
+  const hasOutput = !!result && result.prompt.length > 0
   const canSave = !!session?.user?.isPro && hasOutput
   const showUpgradeNudge = !!session && !session.user.isPro && hasOutput
   const showSignIn = !session && hasOutput
@@ -100,9 +102,11 @@ export function OutputPanel({
       <div className="output-header-row">
         <h2>Output</h2>
         <div className="output-actions">
-          <button type="button" className="copy-btn" onClick={onCopy}>
-            Copy
-          </button>
+          {hasOutput && (
+            <button type="button" className="copy-btn" onClick={onCopy}>
+              Copy
+            </button>
+          )}
           {canSave && (
             <button
               type="button"
@@ -126,21 +130,27 @@ export function OutputPanel({
         </div>
       </div>
 
-      <textarea className="prompt-output" readOnly value={result.prompt} rows={16} />
+      {hasOutput ? (
+        <textarea className="prompt-output" readOnly value={result!.prompt} rows={16} />
+      ) : (
+        <div className="output-placeholder">
+          Fill in the fields and click <strong>Generate</strong> to build your prompt.
+        </div>
+      )}
 
       {hasOutput && (
         <div className="export-row">
           <button
             type="button"
             className="export-btn"
-            onClick={() => navigator.clipboard.writeText(toMarkdown(result))}
+            onClick={() => navigator.clipboard.writeText(toMarkdown(result!))}
           >
             Copy as Markdown
           </button>
           <button
             type="button"
             className="export-btn"
-            onClick={() => downloadTxt(result.prompt, result.framework)}
+            onClick={() => downloadTxt(result!.prompt, result!.framework)}
           >
             Download .txt
           </button>
@@ -211,10 +221,12 @@ export function OutputPanel({
         </div>
       )}
 
-      <div className="output-footer">
-        {result.tokenEstimate} tokens · {frameworkName} · {result.locale} · {filledCount}/
-        {totalFields} fields filled
-      </div>
+      {hasOutput && (
+        <div className="output-footer">
+          {result!.tokenEstimate} tokens · {frameworkName} · {result!.locale} · {filledCount}/
+          {totalFields} fields filled
+        </div>
+      )}
 
       <button
         type="button"
@@ -224,7 +236,7 @@ export function OutputPanel({
         {devMode ? 'Hide dev' : 'Dev'}
       </button>
 
-      {devMode && (
+      {devMode && result && (
         <div className="dev-box">
           <h3>Sections</h3>
           <div className="sections-list">
