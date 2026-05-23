@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { GoogleAnalytics } from '@next/third-parties/google'
+import Script from 'next/script'
 import { CookieHubScript } from '@/components/CookieHubScript'
 import './globals.css'
 import { Providers } from './providers'
@@ -13,7 +13,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <GoogleAnalytics gaId="G-H4MH5D51GQ" />
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-H4MH5D51GQ" strategy="afterInteractive" />
+        <Script id="gtag-init" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-H4MH5D51GQ');
+        `}</Script>
         <CookieHubScript />
         <Providers>{children}</Providers>
       </body>
