@@ -1,4 +1,4 @@
-type ProCheckInput = {
+export type ProCheckInput = {
   subscriptionStatus: string | null | undefined
   dayPassExpiry: Date | null | undefined
 }

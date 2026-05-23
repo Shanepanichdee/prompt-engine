@@ -3,7 +3,7 @@ import { PrismaAdapter } from '@auth/prisma-adapter'
 import Resend from 'next-auth/providers/resend'
 import { db } from '@/lib/db'
 import { authConfig } from '@/lib/auth.config'
-import { isPro } from '@/lib/subscription'
+import { isPro, type ProCheckInput } from '@/lib/subscription'
 
 const result: NextAuthResult = NextAuth({
   ...authConfig,
@@ -19,7 +19,7 @@ const result: NextAuthResult = NextAuth({
     ...authConfig.callbacks,
     session({ session, user }) {
       session.user.id = user.id
-      session.user.isPro = isPro(user as unknown as { subscriptionStatus: string | null; dayPassExpiry: Date | null })
+      session.user.isPro = isPro(user as unknown as ProCheckInput)
       return session
     },
   },
