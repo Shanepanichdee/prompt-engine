@@ -2,15 +2,18 @@
 
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 import { build, frameworks, getLocale, type Field, type LocaleCode } from '@prompt-engine/core'
 import { FieldsForm } from '@/components/FieldsForm'
 import { CompareOutputPanel } from '@/components/CompareOutputPanel'
+import { UpgradeWall } from '@/components/UpgradeWall'
 
 const LOCALES: LocaleCode[] = ['en', 'th', 'zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ar']
 
 const DEFAULT_IDS = [frameworks[0]?.id ?? 'rtf', frameworks[1]?.id ?? 'crispe']
 
 export default function ComparePage() {
+  const { data: session, status } = useSession()
   const [selectedIds, setSelectedIds] = useState<string[]>(DEFAULT_IDS)
   const [values, setValues] = useState<Record<string, string>>({})
   const [locale, setLocale] = useState<LocaleCode>('en')
@@ -50,6 +53,11 @@ export default function ComparePage() {
 
   const handleFieldChange = (key: string, value: string) => {
     setValues((prev) => ({ ...prev, [key]: value }))
+  }
+
+  if (status === 'loading') return null
+  if (!session?.user?.isPro) {
+    return <UpgradeWall feature="Compare" />
   }
 
   return (
