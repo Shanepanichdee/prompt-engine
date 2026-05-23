@@ -19,7 +19,12 @@ const result: NextAuthResult = NextAuth({
     ...authConfig.callbacks,
     session({ session, user }) {
       session.user.id = user.id
-      session.user.isPro = isPro(user as unknown as ProCheckInput)
+      try {
+        session.user.isPro = isPro(user as unknown as ProCheckInput)
+      } catch (err) {
+        console.error('isPro check failed:', err)
+        session.user.isPro = false
+      }
       return session
     },
   },
