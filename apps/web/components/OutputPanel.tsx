@@ -90,8 +90,10 @@ export function OutputPanel({
       ? `${window.location.origin}/p/${shareSlug}`
       : null
 
-  const canSave = session && result.prompt.length > 0
   const hasOutput = result.prompt.length > 0
+  const canSave = !!session?.user?.isPro && hasOutput
+  const showUpgradeNudge = !!session && !session.user.isPro && hasOutput
+  const showSignIn = !session && hasOutput
 
   return (
     <section className="panel output-panel">
@@ -110,6 +112,16 @@ export function OutputPanel({
             >
               {saving ? 'Saving…' : 'Save'}
             </button>
+          )}
+          {showUpgradeNudge && (
+            <a href="/pricing" className="save-upgrade-nudge">
+              Pro to save ↗
+            </a>
+          )}
+          {showSignIn && (
+            <a href="/api/auth/signin" className="save-upgrade-nudge">
+              Sign in to save
+            </a>
           )}
         </div>
       </div>

@@ -1812,3 +1812,24 @@ input:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+
+/* ── Save upgrade nudge ───────────────────────────────────── */
+.save-upgrade-nudge {
+  height: 36px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--brand);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--brand);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.save-upgrade-nudge:hover {
+  background: var(--brand-soft);
+}
