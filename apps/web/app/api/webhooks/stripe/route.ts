@@ -2,9 +2,20 @@ import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { db } from '@/lib/db'
 
+export const dynamic = 'force-dynamic'
+
+if (!process.env.STRIPE_WEBHOOK_SECRET) {
+  throw new Error('STRIPE_WEBHOOK_SECRET env var is not set')
+}
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2026-04-22.dahlia',
 })
+
+function toCustomerId(customer: string | Stripe.Customer | Stripe.DeletedCustomer | null): string | null {
+  if (!customer) return null
+  return typeof customer === 'string' ? customer : customer.id
+}
 
 export async function POST(req: Request) {
   const body = await req.text()
@@ -25,46 +36,52 @@ export async function POST(req: Request) {
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session
-        const customerId = session.customer as string
-        if (session.mode === 'payment') {
-          const expiry = new Date(Date.now() + 24 * 60 * 60 * 1000)
-          await db.user.update({
-            where: { stripeCustomerId: customerId },
-            data: { dayPassExpiry: expiry },
-          })
-        }
+        const customerId = toCustomerId(session.customer)
+        if (!customerId || session.mode !== 'payment') break
+        await db.user.update({
+          where: { stripeCustomerId: customerId },
+          data: { dayPassExpiry: new Date(Date.now() + 24 * 60 * 60 * 1000) },
+        })
         break
       }
       case 'customer.subscription.created':
       case 'customer.subscription.updated': {
         const sub = event.data.object as Stripe.Subscription
+        const customerId = toCustomerId(sub.customer)
+        if (!customerId) break
         await db.user.update({
-          where: { stripeCustomerId: sub.customer as string },
-          data: {
-            subscriptionStatus: sub.status,
-            subscriptionId: sub.id,
-          },
+          where: { stripeCustomerId: customerId },
+          data: { subscriptionStatus: sub.status, subscriptionId: sub.id },
         })
         break
       }
       case 'customer.subscription.deleted': {
         const sub = event.data.object as Stripe.Subscription
+        const customerId = toCustomerId(sub.customer)
+        if (!customerId) break
         await db.user.update({
-          where: { stripeCustomerId: sub.customer as string },
+          where: { stripeCustomerId: customerId },
           data: { subscriptionStatus: 'canceled', subscriptionId: null },
         })
         break
       }
       case 'invoice.payment_failed': {
         const invoice = event.data.object as Stripe.Invoice
+        const customerId = toCustomerId(invoice.customer)
+        if (!customerId) break
         await db.user.update({
-          where: { stripeCustomerId: invoice.customer as string },
+          where: { stripeCustomerId: customerId },
           data: { subscriptionStatus: 'past_due' },
         })
         break
       }
     }
-  } catch (err) {
+  } catch (err: unknown) {
+    // P2025 = Prisma record not found — unretriable, acknowledge so Stripe stops retrying
+    if (typeof err === 'object' && err !== null && 'code' in err && (err as { code: string }).code === 'P2025') {
+      console.warn('Webhook: no user found for Stripe customer, skipping:', event.type)
+      return NextResponse.json({ received: true })
+    }
     console.error('Webhook handler error:', err)
     return NextResponse.json({ error: 'Handler failed' }, { status: 500 })
   }
