@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { db } from '@/lib/db'
-
-const DAILY_LIMIT = 5
+import { DAILY_LIMIT } from '@/lib/subscription'
 
 export async function POST() {
   const session = await auth()
@@ -28,7 +27,7 @@ export async function POST() {
   }
 
   const todayStart = new Date()
-  todayStart.setHours(0, 0, 0, 0)
+  todayStart.setUTCHours(0, 0, 0, 0)
 
   const isNewDay = !user.freeUsageDate || user.freeUsageDate < todayStart
   const currentCount = isNewDay ? 0 : user.freeUsageCount
@@ -37,13 +36,22 @@ export async function POST() {
     return NextResponse.json({ allowed: false, remaining: 0 })
   }
 
-  await db.user.update({
-    where: { id: session.user.id },
-    data: {
-      freeUsageCount: currentCount + 1,
-      freeUsageDate: isNewDay ? new Date() : undefined,
+  // Atomic update with optimistic lock — only succeeds if count is still < DAILY_LIMIT
+  const updated = await db.user.updateMany({
+    where: {
+      id: session.user.id,
+      ...(isNewDay ? {} : { freeUsageCount: { lt: DAILY_LIMIT } }),
     },
+    data: isNewDay
+      ? { freeUsageCount: 1, freeUsageDate: new Date() }
+      : { freeUsageCount: { increment: 1 } },
   })
 
-  return NextResponse.json({ allowed: true, remaining: DAILY_LIMIT - currentCount - 1 })
+  if (updated.count === 0) {
+    // Race condition: another concurrent request hit the limit first
+    return NextResponse.json({ allowed: false, remaining: 0 })
+  }
+
+  const newCount = isNewDay ? 1 : currentCount + 1
+  return NextResponse.json({ allowed: true, remaining: DAILY_LIMIT - newCount })
 }

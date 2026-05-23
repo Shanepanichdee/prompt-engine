@@ -9,6 +9,8 @@ export function isPro(user: ProCheckInput): boolean {
   return false
 }
 
+export const DAILY_LIMIT = 5
+
 export const FREE_FRAMEWORK_IDS = ['rtf', 'costar', 'risen', 'ape'] as const
 export type FreeFrameworkId = (typeof FREE_FRAMEWORK_IDS)[number]
 

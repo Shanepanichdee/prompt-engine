@@ -9,10 +9,9 @@ import { FrameworkPicker } from '../components/FrameworkPicker'
 import { OutputPanel } from '../components/OutputPanel'
 import { TopBar } from '../components/TopBar'
 import { FRAMEWORK_DETAILS } from '../components/frameworkDetails'
-import { FREE_FRAMEWORK_IDS, isFreeFramework } from '../lib/subscription'
+import { DAILY_LIMIT, FREE_FRAMEWORK_IDS, isFreeFramework } from '../lib/subscription'
 
 const LOCALES: LocaleCode[] = ['en', 'th', 'zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ar']
-const DAILY_LIMIT = 5
 
 export default function Page() {
   const { data: session } = useSession()
@@ -32,9 +31,15 @@ export default function Page() {
     const loc = params.get('locale')
     const matchedFramework = fw ? frameworks.find((f) => f.id === fw) : null
     if (matchedFramework) {
-      setFrameworkId(matchedFramework.id)
+      // Gate: only load Pro frameworks from URL if they are free.
+      // Since session isn't known at mount time, default to the first free framework for
+      // locked ones. Pro users can manually select after session loads (within 1-2 renders).
+      const frameworkToLoad = isFreeFramework(matchedFramework.id)
+        ? matchedFramework
+        : frameworks.find((f) => isFreeFramework(f.id)) ?? matchedFramework
+      setFrameworkId(frameworkToLoad.id)
       const loaded: Record<string, string> = {}
-      for (const field of matchedFramework.fields) {
+      for (const field of frameworkToLoad.fields) {
         const val = params.get(field.key)
         if (val) loaded[field.key] = val
       }
@@ -110,6 +115,10 @@ export default function Page() {
       } else if (!isPro) {
         // Logged-in free user: server check
         const res = await fetch('/api/generate', { method: 'POST' })
+        if (!res.ok) {
+          // Server error — don't generate, don't trip the limit flag
+          return
+        }
         const data = (await res.json()) as { allowed: boolean; remaining: number | null }
         if (!data.allowed) {
           setIsLimitHit(true)
