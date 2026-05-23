@@ -2014,3 +2014,127 @@ input:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+
+/* ── Free tier: Generate button ──────────────────────── */
+.generate-btn {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--brand);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  text-align: center;
+  text-decoration: none;
+}
+.generate-btn:hover:not(:disabled) {
+  background: var(--brand-2);
+}
+.generate-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.generate-btn-upgrade {
+  background: var(--brand-2);
+}
+.generate-btn-upgrade:hover {
+  background: var(--brand);
+}
+
+/* ── Free tier: usage counter ────────────────────────── */
+.usage-counter {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-align: center;
+}
+.usage-counter a {
+  color: var(--brand);
+  text-decoration: none;
+}
+.usage-counter a:hover {
+  text-decoration: underline;
+}
+
+/* ── Free tier: daily limit hit ──────────────────────── */
+.limit-hit-wall {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #fff8e6;
+  border: 1px solid #f0c040;
+  border-radius: 12px;
+  text-align: center;
+}
+.limit-hit-msg {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ── Framework picker: Pro badge ─────────────────────── */
+.framework-name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.pro-badge {
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+  background: var(--brand);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.framework-card.locked {
+  opacity: 0.7;
+}
+.framework-card.locked:hover {
+  border-color: var(--brand);
+  cursor: pointer;
+}
+
+/* ── Locked framework nudge ──────────────────────────── */
+.locked-framework-nudge {
+  margin-top: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  background: var(--brand-soft);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+.locked-framework-nudge a {
+  color: var(--brand);
+  font-weight: 600;
+  text-decoration: none;
+}
+.locked-framework-nudge a:hover {
+  text-decoration: underline;
+}
+
+/* ── Output placeholder ──────────────────────────────── */
+.output-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  border: 2px dashed var(--border);
+  border-radius: 10px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 2rem;
+  margin-bottom: 0.5rem;
+}
