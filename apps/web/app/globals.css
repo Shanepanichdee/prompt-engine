@@ -2053,31 +2053,42 @@ input:focus-visible {
 .generate-btn {
   display: block;
   width: 100%;
-  margin-top: 1rem;
-  padding: 0.75rem 1.5rem;
-  background: var(--brand);
+  margin-top: 1.25rem;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, #009999 0%, #008080 60%, #006666 100%);
   color: #fff;
   border: none;
   border-radius: 999px;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   cursor: pointer;
-  transition: background 0.15s;
   text-align: center;
   text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 128, 128, 0.35), 0 1px 3px rgba(0, 128, 128, 0.2);
+  transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease, opacity 150ms ease;
 }
 .generate-btn:hover:not(:disabled) {
-  background: var(--brand-2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 128, 128, 0.45), 0 2px 6px rgba(0, 128, 128, 0.25);
+  background: linear-gradient(135deg, #00aaaa 0%, #009999 60%, #007777 100%);
+}
+.generate-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 128, 128, 0.3);
 }
 .generate-btn:disabled {
   opacity: 0.45;
   cursor: not-allowed;
+  box-shadow: none;
 }
 .generate-btn-upgrade {
-  background: var(--brand-2);
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
 }
 .generate-btn-upgrade:hover {
-  background: var(--brand);
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  box-shadow: 0 8px 20px rgba(217, 119, 6, 0.45);
 }
 
 /* ── Free tier: usage counter ────────────────────────── */
