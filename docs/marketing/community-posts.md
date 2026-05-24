@@ -41,12 +41,13 @@ Your AI prompt is vague because you haven't told it four things:
 3. How to respond (format)
 4. Who's reading it (audience)
 
-RTF is the simplest framework:
+RTCF is the simplest framework:
 - **R**ole: Act as a senior B2B sales consultant
 - **T**ask: Write a cold outreach email to a VP of Operations at a logistics company. Open with a supply chain pain point. Include one customer result. End with a 15-minute CTA.
+- **C**ontext: Mid-size logistics company, 200 employees, struggling with last-mile delivery costs
 - **F**ormat: Under 120 words. No buzzwords.
 
-That's it. Three fields. Output goes from "here is a cold email..." to something you can actually send.
+That's it. Four fields. Output goes from "here is a cold email..." to something you can actually send.
 
 I built prompts.data-shane.com with 14 frameworks in a guided form. Free to try.
 
@@ -61,7 +62,7 @@ Quick reference I put together (also built into a tool):
 
 | Framework | Best for | Key structure |
 |-----------|----------|---------------|
-| RTF | Quick tasks | Role, Task, Format |
+| RTCF | Quick tasks | Role, Task, Context, Format |
 | CO-STAR | Complex output | Context, Objective, Style, Tone, Audience, Response |
 | RISEN | Instructions | Role, Instructions, Steps, End Goal, Narrowing |
 | CRISPE | Deep expertise | Capacity, Role, Insight, Statement, Personality, Experiment |
@@ -69,7 +70,7 @@ Quick reference I put together (also built into a tool):
 | Few-Shot | Pattern matching | Examples → task |
 | ReAct | Agentic tasks | Reason → Act cycles |
 
-For business tasks: RTF for speed, CO-STAR for quality, RISEN for anything with steps.
+For business tasks: RTCF for speed, CO-STAR for quality, RISEN for anything with steps.
 
 Tool with all 14 in a guided form: prompts.data-shane.com
 
@@ -83,9 +84,10 @@ Tool with all 14 in a guided form: prompts.data-shane.com
 
 แล้วก็ได้ผลลัพธ์ที่ generic มาก?
 
-ลองใช้ RTF Framework ดูครับ:
+ลองใช้ RTCF Framework ดูครับ:
 - **R**ole: คุณคือ sales consultant ระดับ senior ที่เชี่ยวชาญ B2B
 - **T**ask: เขียน cold email ถึง VP Operations ของบริษัท logistics เปิดด้วย pain point เรื่อง supply chain, ใส่ผลลัพธ์ที่ลูกค้ารายหนึ่งได้รับ, จบด้วย CTA ขอนัด 15 นาที
+- **C**ontext: บริษัท logistics ขนาดกลาง 200 คน มีปัญหาเรื่อง last-mile delivery cost
 - **F**ormat: ไม่เกิน 120 คำ, ไม่ใช้ศัพท์เท่ๆ ที่ฟังดู corporate เกินไป
 
 ผมสร้าง tool ที่รวม framework สำหรับ prompt engineering ไว้ 14 แบบ ใช้ฟรีที่ prompts.data-shane.com รองรับภาษาไทยด้วยครับ
@@ -160,7 +162,7 @@ I spent 3 months building a tool most people would build in a weekend.
 
 Not because I'm slow. Because I wanted it right for non-technical users.
 
-Prompt Engine started as my own frustration: I kept writing the same structured prompts by hand. CO-STAR for briefs. RISEN for instructions. RTF for quick tasks.
+Prompt Engine started as my own frustration: I kept writing the same structured prompts by hand. CO-STAR for briefs. RISEN for instructions. RTCF for quick tasks.
 
 So I built a form that does the structure for you. You fill in the concepts. It builds the framework.
 
