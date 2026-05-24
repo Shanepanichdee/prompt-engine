@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { frameworks, type PromptResult } from '@prompt-engine/core'
 
@@ -47,6 +48,7 @@ export function OutputPanel({
   onCopy,
 }: Props) {
   const { data: session } = useSession()
+  const router = useRouter()
   const [devMode, setDevMode] = useState(false)
   const [shareSlug, setShareSlug] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
@@ -73,6 +75,7 @@ export function OutputPanel({
         const data = (await res.json()) as { slug: string }
         setShareSlug(data.slug)
         setTitle('')
+        router.refresh()
       }
     } finally {
       setSaving(false)
