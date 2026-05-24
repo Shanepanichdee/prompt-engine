@@ -154,11 +154,16 @@ export default function Page() {
         <section className="panel builder-panel">
           <label className="select-label">
             Language
-            <select
-              className="language-select"
-              value={locale}
-              onChange={(event) => setLocale(event.target.value as LocaleCode)}
-            >
+            <div className="language-select-wrap">
+              <svg className="language-globe-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.25"/>
+                <path d="M8 1.5C8 1.5 6 4 6 8s2 6.5 2 6.5M8 1.5C8 1.5 10 4 10 8s-2 6.5-2 6.5M1.5 8h13" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+              </svg>
+              <select
+                className="language-select"
+                value={locale}
+                onChange={(event) => setLocale(event.target.value as LocaleCode)}
+              >
               {LOCALES.map((code) => {
                 const localeDef = getLocale(code)
                 return (
@@ -168,6 +173,7 @@ export default function Page() {
                 )
               })}
             </select>
+            </div>
           </label>
 
           <h3 className="section-title">Frameworks</h3>
