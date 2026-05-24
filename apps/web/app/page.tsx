@@ -233,14 +233,19 @@ export default function Page() {
       </div>
 
       <footer className="page-footer">
-        Created by{' '}
-        <a href="https://datashane.com" target="_blank" rel="noreferrer">datashane.com</a>
-        {' · '}
-        <a href="https://qr-engine.data-shane.com" target="_blank" rel="noreferrer">QR Code Engine</a>
-        {' · '}
-        <a href="/privacy">Privacy Policy</a>
-        {' · '}
-        <a href="/terms">Terms of Use</a>
+        <div className="page-footer-links">
+          <a href="https://qr-engine.data-shane.com" target="_blank" rel="noreferrer">QR Code Engine</a>
+          <span className="page-footer-dot" />
+          <a href="/pricing">Pricing</a>
+          <span className="page-footer-dot" />
+          <a href="/privacy">Privacy Policy</a>
+          <span className="page-footer-dot" />
+          <a href="/terms">Terms of Use</a>
+        </div>
+        <div className="page-footer-brand">
+          Built by{' '}
+          <a href="https://datashane.com" target="_blank" rel="noreferrer">datashane.com</a>
+        </div>
       </footer>
     </main>
   )
