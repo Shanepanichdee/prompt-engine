@@ -14,7 +14,7 @@ import { DAILY_LIMIT, FREE_FRAMEWORK_IDS, isFreeFramework } from '../lib/subscri
 const LOCALES: LocaleCode[] = ['en', 'th', 'zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ar']
 
 export default function Page() {
-  const { data: session } = useSession()
+  const { data: session, update: updateSession } = useSession()
   const [locale, setLocale] = useState<LocaleCode>('en')
   const [frameworkId, setFrameworkId] = useState<string>(frameworks[0]?.id ?? 'rtf')
   const [values, setValues] = useState<Record<string, string>>({})
@@ -27,6 +27,12 @@ export default function Page() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
+    if (params.get('upgraded') === '1') {
+      void updateSession()
+      const clean = new URL(window.location.href)
+      clean.searchParams.delete('upgraded')
+      window.history.replaceState({}, '', clean.toString())
+    }
     const fw = params.get('framework')
     const loc = params.get('locale')
     const matchedFramework = fw ? frameworks.find((f) => f.id === fw) : null
