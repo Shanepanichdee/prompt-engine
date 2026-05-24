@@ -202,7 +202,7 @@ export default function Page() {
           <div className="section-title-row">
             <h3 className="section-title">Inputs</h3>
             {filledCount > 0 && (
-              <button type="button" className="clear-btn" onClick={() => setValues({})}>
+              <button type="button" className="clear-btn" onClick={() => { setValues({}); setGeneratedResult(null) }}>
                 Clear all
               </button>
             )}
