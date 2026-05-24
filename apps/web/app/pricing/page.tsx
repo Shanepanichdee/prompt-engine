@@ -3,10 +3,12 @@
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { TopBar } from '@/components/TopBar'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function PricingPage() {
-  const { data: session } = useSession()
+  const { data: session, update: updateSession } = useSession()
+
+  useEffect(() => { void updateSession() }, [])
   const router = useRouter()
   const [darkMode, setDarkMode] = useState(false)
 

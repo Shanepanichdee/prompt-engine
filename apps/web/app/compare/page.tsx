@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { build, frameworks, getLocale, type Field, type LocaleCode } from '@prompt-engine/core'
@@ -13,8 +13,10 @@ const LOCALES: LocaleCode[] = ['en', 'th', 'zh', 'ja', 'ko', 'es', 'fr', 'de', '
 const DEFAULT_IDS = [frameworks[0]?.id ?? 'rtf', frameworks[1]?.id ?? 'crispe']
 
 export default function ComparePage() {
-  const { data: session, status } = useSession()
+  const { data: session, status, update: updateSession } = useSession()
   const [selectedIds, setSelectedIds] = useState<string[]>(DEFAULT_IDS)
+
+  useEffect(() => { void updateSession() }, [])
   const [values, setValues] = useState<Record<string, string>>({})
   const [locale, setLocale] = useState<LocaleCode>('en')
 
