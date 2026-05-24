@@ -368,12 +368,14 @@ body {
   background: #fff;
   cursor: pointer;
   width: 100%;
-  transition: border-color 120ms ease, transform 120ms ease, box-shadow 120ms ease;
+  transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
 }
 
 .framework-card:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 20px rgba(16, 31, 46, 0.08);
+  border-color: var(--brand);
+  background: #f7fefe;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 128, 128, 0.12), 0 1px 3px rgba(0, 128, 128, 0.08);
 }
 
 .framework-card.active {
