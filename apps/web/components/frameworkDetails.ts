@@ -45,9 +45,9 @@ export const FRAMEWORK_DETAILS: Record<string, FrameworkDetail> = {
     },
   },
   rtf: {
-    whatItIs: 'A fast framework for clear instructions: Role (who the model is), Target (what outcome to achieve), Context (who/where/how much), Format (how to output).',
+    whatItIs: 'A fast framework for clear instructions: Role (who the model is), Task (what to accomplish), Context (who/where/how much), Format (how to output).',
     whenToUse: 'Use when you want a natural, concise prompt but still need enough context for high-quality output.',
-    sample: 'You are a senior data analyst, and your target is to summarize this sales dataset for regional sales managers in Thailand, highlighting key risks and opportunities in about five actionable bullet points.',
+    sample: 'You are a senior data analyst. Your task is to summarize this sales dataset for regional sales managers in Thailand, highlighting key risks and opportunities in about five actionable bullet points.',
     sampleInputs: {
       role: 'a senior data analyst',
       target:

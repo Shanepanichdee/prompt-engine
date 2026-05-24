@@ -161,7 +161,7 @@ The web UI form and CLI are auto-generated from `fields` — no UI code needed.
 | `crispe` | CRISPE | Capacity · Role · Insight · Statement · Personality · Experiment |
 | `costar` | CO-STAR | Context · Objective · Style · Tone · Audience · Response |
 | `risen` | RISEN | Role · Instructions · Steps · End Goal · Narrowing |
-| `rtf` | RTCF | Role · Target · Context · Format |
+| `rtf` | RTCF | Role · Task · Context · Format |
 | `cot` | Chain of Thought | Step-by-step reasoning scaffold |
 | `fewshot` | Few-Shot | Example input/output pairs |
 | `ape` | APE | Action · Purpose · Expectation |

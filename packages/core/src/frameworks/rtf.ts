@@ -4,10 +4,10 @@ import { compactSections, field, section } from './utils';
 export const rtf: Framework = {
   id: 'rtf',
   name: 'RTCF',
-  description: 'Role, Target, Context, Format',
+  description: 'Role, Task, Context, Format',
   fields: [
     field('role', 'Role', 'Role to assume', true),
-    field('target', 'Target', 'Primary objective or target outcome to achieve', true),
+    field('target', 'Task', 'The task or objective to accomplish', true),
     field(
       'context',
       'Context',
@@ -19,7 +19,7 @@ export const rtf: Framework = {
   assemble: (i, t) =>
     compactSections([
       section('Role', 'role', i.role ?? '', t),
-      section('Target', 'task', i.target ?? i.task ?? '', t),
+      section('Task', 'task', i.target ?? i.task ?? '', t),
       section('Context', 'context', i.context ?? '', t),
       section('Format', 'format', i.format ?? '', t),
     ]),
