@@ -262,14 +262,16 @@ body {
 }
 
 .page-footer {
-  margin-top: 40px;
-  text-align: center;
-  padding: 28px 24px;
+  margin-top: 48px;
+  margin-left: -28px;
+  margin-right: -28px;
+  padding: 18px 28px;
   border-top: 1px solid var(--border);
   background: var(--surface);
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
@@ -277,7 +279,6 @@ body {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 6px;
   font-size: 13px;
 }
@@ -286,14 +287,16 @@ body {
   width: 3px;
   height: 3px;
   border-radius: 50%;
-  background: var(--border);
+  background: var(--muted);
   display: inline-block;
   flex-shrink: 0;
+  opacity: 0.4;
 }
 
 .page-footer-brand {
   font-size: 12px;
   color: var(--muted);
+  white-space: nowrap;
 }
 
 .page-footer a {
@@ -894,7 +897,10 @@ input:focus-visible {
 
 /* ── History / Explore nav ── */
 .page-nav {
-  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
 /* ── History ── */
