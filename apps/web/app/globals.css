@@ -2121,15 +2121,17 @@ input:focus-visible {
 .pro-badge {
   display: inline-block;
   padding: 0.1rem 0.45rem;
-  background: var(--brand);
+  background: linear-gradient(135deg, #f59e0b, #d97706);
   color: #fff;
   border-radius: 999px;
   font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   line-height: 1.4;
   vertical-align: middle;
   flex-shrink: 0;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.15);
+  box-shadow: 0 1px 3px rgba(217, 119, 6, 0.3);
 }
 .framework-card.locked {
   opacity: 0.7;
