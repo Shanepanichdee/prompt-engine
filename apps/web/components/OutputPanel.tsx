@@ -134,7 +134,21 @@ export function OutputPanel({
         <textarea className="prompt-output" readOnly value={result!.prompt} rows={16} />
       ) : (
         <div className="output-placeholder">
-          Fill in the fields and click <strong>Generate</strong> to build your prompt.
+          <div className="output-placeholder-icon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="48" height="48" rx="14" fill="#D4EEEE"/>
+              <path d="M15 24h18M15 18h18M15 30h12" stroke="#008080" strokeWidth="2.5" strokeLinecap="round"/>
+              <circle cx="36" cy="30" r="5" fill="#008080"/>
+              <path d="M34.5 30l1 1 2-2" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <p className="output-placeholder-title">Your prompt will appear here</p>
+          <p className="output-placeholder-sub">Follow these steps to generate your first prompt</p>
+          <ol className="output-placeholder-steps">
+            <li>Choose a framework from the left</li>
+            <li>Fill in the input fields</li>
+            <li>Click <strong>Generate Prompt</strong></li>
+          </ol>
         </div>
       )}
 
