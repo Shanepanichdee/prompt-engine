@@ -13,12 +13,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-H4MH5D51GQ" strategy="afterInteractive" />
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-PHEHV8NY6P" strategy="afterInteractive" />
         <Script id="gtag-init" strategy="afterInteractive">{`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'G-H4MH5D51GQ');
+          gtag('config', 'G-PHEHV8NY6P');
         `}</Script>
         <CookieHubScript />
         <Providers>{children}</Providers>
