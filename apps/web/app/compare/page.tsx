@@ -66,27 +66,25 @@ export default function ComparePage() {
     <main className="page">
       <div className="page-nav">
         <Link href="/" className="auth-link">← Builder</Link>
+        <label className="select-label" style={{ marginLeft: 'auto' }}>
+          <select
+            className="language-select"
+            value={locale}
+            onChange={(e) => setLocale(e.target.value as LocaleCode)}
+          >
+            {LOCALES.map((code) => {
+              const def = getLocale(code)
+              return (
+                <option key={code} value={code}>
+                  {def.langLabel} ({code})
+                </option>
+              )
+            })}
+          </select>
+        </label>
       </div>
       <h1 className="history-heading">Compare Frameworks</h1>
       <p className="muted-text compare-sub">Same inputs, different frameworks — see how each structures your prompt.</p>
-
-      <label className="select-label compare-locale">
-        Language
-        <select
-          className="language-select"
-          value={locale}
-          onChange={(e) => setLocale(e.target.value as LocaleCode)}
-        >
-          {LOCALES.map((code) => {
-            const def = getLocale(code)
-            return (
-              <option key={code} value={code}>
-                {def.langLabel} ({code})
-              </option>
-            )
-          })}
-        </select>
-      </label>
 
       <div className="compare-framework-picker">
         <p className="compare-picker-label">Select frameworks to compare (click to toggle):</p>
