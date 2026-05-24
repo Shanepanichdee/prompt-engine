@@ -56,11 +56,12 @@
 
 ---
 
-## 5. Consultant — Client Brief (RTF)
+## 5. Consultant — Client Brief (RTCF)
 
 **Bad prompt:** "Help me write a project brief."
 
-**RTF structured prompt:**
+**RTCF structured prompt:**
 - Role: Senior management consultant at a top-tier firm
-- Task: Write a project brief for a 6-week digital transformation audit for a regional bank
+- Target: Write a project brief for a 6-week digital transformation audit for a regional bank
+- Context: For the client's internal steering committee — senior leaders with financial background, no technical jargon, decision-making audience
 - Format: Four sections — Project Scope, Deliverables, Timeline (week-by-week), Success Metrics. Use headers. Max 500 words.

@@ -47,16 +47,16 @@ export const FRAMEWORK_GUIDE: Record<string, FrameworkGuide> = {
   },
   rtf: {
     pros: [
-      'Fastest framework to fill — three fields only',
-      'Great default starting point for any task',
-      'Low friction encourages prompt iteration',
+      'Four focused fields — fast to fill, hard to leave out key info',
+      'Context field prevents generic outputs without requiring a full framework',
+      'Great default starting point for any structured task',
     ],
     cons: [
-      'Minimal context leads to generic outputs',
-      'No tone, audience, or step control',
+      'No tone, audience, or step-by-step control',
+      'Less suited for multi-part reasoning or creative nuance',
     ],
-    bestFor: 'Quick everyday tasks, initial drafts, prototyping prompts',
-    avoid: 'High-stakes or nuanced outputs requiring deep context',
+    bestFor: 'Everyday business tasks, drafts, and structured deliverables',
+    avoid: 'Complex reasoning chains or tasks requiring explicit tone/persona control',
   },
   cot: {
     pros: [
