@@ -489,6 +489,18 @@ body {
   font: inherit;
   line-height: 1.45;
   background: #fff;
+  transition: border-color 150ms ease, box-shadow 150ms ease, background 150ms ease;
+  outline: none;
+}
+
+.field-input:hover {
+  border-color: rgba(0, 128, 128, 0.4);
+}
+
+.field-input:focus {
+  border-color: var(--brand);
+  background: #f7fefe;
+  box-shadow: 0 0 0 3px rgba(0, 128, 128, 0.15);
 }
 
 .field-hint {
