@@ -7,6 +7,7 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: 'Explore — Prompt Engine',
   description: 'Browse public prompts from the community.',
+  robots: { index: false, follow: false },
 }
 
 export default async function ExplorePage() {

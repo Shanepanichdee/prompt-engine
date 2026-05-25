@@ -16,6 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${title} — Prompt Engine`,
     description: prompt.promptText.slice(0, 160),
+    robots: { index: false, follow: false },
   }
 }
 
