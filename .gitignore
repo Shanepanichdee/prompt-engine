@@ -38,3 +38,11 @@ yarn-error.log*
 
 # Test
 coverage/
+
+# Playwright MCP artifacts
+.playwright-mcp/
+
+# Scratch images
+dark-mode-*.png
+prompt-engine-current.png
+qr-engine-full.png
